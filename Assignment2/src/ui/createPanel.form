@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="btnGroupUber">
+    </Component>
+    <Component class="javax.swing.ButtonGroup" name="btnGroupAvailability">
+    </Component>
+  </NonVisualComponents>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="lblCity3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblCity2" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblCity" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblNoOfSeats" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblManufracturerName2" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblVehRegNo" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblManufracturerName" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblModelNo" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="lbluploadFile" alignment="1" max="32767" attributes="0"/>
+                      <Component id="lblCity4" alignment="1" min="-2" pref="99" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txtModelNo" max="32767" attributes="0"/>
+                          <Component id="txtManufacturerName" max="32767" attributes="0"/>
+                          <Component id="txtVehRegNo" max="32767" attributes="0"/>
+                          <Component id="txtYear" max="32767" attributes="0"/>
+                          <Component id="txtSeats" max="32767" attributes="0"/>
+                          <Component id="txtCity" max="32767" attributes="0"/>
+                          <Component id="dateChooserCertificate" alignment="0" max="32767" attributes="0"/>
+                          <Component id="btnSave" alignment="0" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="rdAvailableYes" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="rdAvailableNo" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="btnFileUpload" alignment="0" min="-2" pref="175" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblVehicleRegNoError" min="-2" pref="183" max="-2" attributes="0"/>
+                          <Component id="lblYearError" min="-2" pref="183" max="-2" attributes="0"/>
+                          <Component id="lblNoOfSeatsError" min="-2" pref="183" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="chkUsedByUber" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
+          </Group>
+          <Component id="lblTitle" alignment="1" max="32767" attributes="0"/>
+          <Component id="lblTitle1" alignment="1" max="32767" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblUsedByUberError" alignment="1" min="-2" pref="183" max="-2" attributes="0"/>
+                  <Component id="lblAvailablityError" alignment="1" min="-2" pref="183" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+          <Component id="lblPageTitle" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblPageTitle" min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="lblTitle1" min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblModelNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtModelNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblManufracturerName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtManufacturerName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="lblVehRegNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtVehRegNo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lblVehicleRegNoError" min="-2" pref="20" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="lblManufracturerName2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtYear" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lblYearError" min="-2" pref="20" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblNoOfSeats" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtSeats" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="lblNoOfSeatsError" min="-2" pref="20" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblCity" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtCity" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblCity2" min="-2" max="-2" attributes="0"/>
+                  <Component id="dateChooserCertificate" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblCity3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="chkUsedByUber" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblCity4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="rdAvailableYes" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="rdAvailableNo" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnSave" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+              <Component id="lblTitle" min="-2" pref="22" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnFileUpload" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbluploadFile" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblUsedByUberError" min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="724" max="-2" attributes="0"/>
+              <Component id="lblAvailablityError" min="-2" pref="20" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="lblTitle">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="12" style="1"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="text" type="java.lang.String" value="Upload Car Models"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblModelNo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Model No:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblManufracturerName">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Manufacturer Name:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblVehRegNo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Vehicle Registration No:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblManufracturerName2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Manufactured Year :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblNoOfSeats">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="No Of Seats:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblCity">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Available in City:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblCity2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Certificate Date:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblCity3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Used By Uber:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblCity4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Currently Available:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtModelNo">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtModelNoKeyReleased"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtManufacturerName">
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtVehRegNo">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtVehRegNoKeyReleased"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtYear">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtYearKeyReleased"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtSeats">
+      <Events>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSeatsKeyReleased"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="txtCity">
+    </Component>
+    <Component class="com.toedter.calendar.JDateChooser" name="dateChooserCertificate">
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="rdAvailableYes">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGroupAvailability"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Yes"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdAvailableYesActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JRadioButton" name="rdAvailableNo">
+      <Properties>
+        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+          <ComponentRef name="btnGroupAvailability"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="No"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdAvailableNoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSave">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Save"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnFileUpload">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Upload File"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFileUploadActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbluploadFile">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Upload Car Models :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblTitle1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="12" style="1"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="text" type="java.lang.String" value="Create Car Model"/>
+        <Property name="horizontalTextPosition" type="int" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblVehicleRegNoError">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblYearError">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblNoOfSeatsError">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="33" green="33" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblUsedByUberError">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblAvailablityError">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblPageTitle">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="12" style="1"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Create/ Upload Car Model"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="chkUsedByUber">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkUsedByUberActionPerformed"/>
+      </Events>
+    </Component>
+  </SubComponents>
+</Form>
