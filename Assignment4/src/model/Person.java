@@ -13,6 +13,7 @@ public class Person {
     private String personName;
     private int personAge;
     private String id;
+    private String Email;
     Housing housing;
     
     public Person(String Name,int Age,String Id,Housing housing)
@@ -54,7 +55,13 @@ public class Person {
     public void setHousing(Housing housing) {
         this.housing = housing;
     }
-    
-    
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String Email) {
+        this.Email = Email;
+    }
     
 }
