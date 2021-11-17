@@ -5,9 +5,15 @@
  */
 package userinterface.SystemAdminWorkArea;
 
+import Business.Customer.Customer;
+import Business.EcoSystem;
+import Business.Order.Order;
+import Business.Restaurant.Restaurant;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Component;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,15 +21,36 @@ import javax.swing.JPanel;
  */
 public class CustomerReviewJPanel extends javax.swing.JPanel {
     private JPanel userContainer;
-    
+    EcoSystem ecoSystem;
     /**
      * Creates new form CustomerReviewJPanel
      */
-    public CustomerReviewJPanel(JPanel userContainer) {
+    public CustomerReviewJPanel(JPanel userContainer,EcoSystem ecoSystem) {
         initComponents();
         this.userContainer = userContainer;
+        this.ecoSystem=ecoSystem;
+        populateCustomerOrderTable();
     }
 
+    private void populateCustomerOrderTable() {
+        DefaultTableModel model = (DefaultTableModel)tblCustomerReview.getModel();
+        model.setRowCount(0);
+        for (Restaurant restaurant:ecoSystem.getRestaurantDirectory().getRestaurantList())
+        {
+            for(Order order:restaurant.getOrderList())
+            {
+                if(order.getStatus() == "Delivered")
+                {
+                    Object[] row = new Object[3];
+                    row[0] = order.getRestaurantName();
+                    row[1] = order.getCustomerName();
+                    row[2] = order.getCustComment();
+                    model.addRow(row);
+                }
+            }     
+        } 
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

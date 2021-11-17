@@ -32,14 +32,15 @@ public class UserAccountDirectory {
         return null;
     }
     
-    public UserAccount createUserAccount(String username, String password, Employee employee, Role role){
+    public void createUserAccount(String name,String username, String password, Employee employee, Role role){
         UserAccount userAccount = new UserAccount();
+        userAccount.setName(name);
         userAccount.setUsername(username);
         userAccount.setPassword(password);
         userAccount.setEmployee(employee);
         userAccount.setRole(role);
         userAccountList.add(userAccount);
-        return userAccount;
+        
     }
     
     public boolean checkIfUsernameIsUnique(String username){
@@ -48,5 +49,15 @@ public class UserAccountDirectory {
                 return false;
         }
         return true;
+    }
+    
+    public void updateUserAccount(UserAccount user,String name,String username, String password){
+        user.setName(name);
+        user.setUsername(username);
+        user.setPassword(password);
+    }
+    
+    public void deleteUserAccount(UserAccount user){
+        userAccountList.remove(user);
     }
 }

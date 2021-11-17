@@ -122,14 +122,11 @@ public class MainJFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginJButtonActionPerformed
-        // Get user name
        UserAccount ua = system.getUserAccountDirectory().authenticateUser(userNameJTextField.getText(), passwordField.getText());
-// System.out.println(ua.getUsername());
-CardLayout layout = (CardLayout) container.getLayout();
-//container.add(new SystemAdminWorkAreaJPanel(container, system));
-container.add(ua.getRole().createWorkArea(container, ua, system));
-layout.next(container);
-logoutJButton.setEnabled(true);
+       CardLayout layout = (CardLayout) container.getLayout();
+       container.add(ua.getRole().createWorkArea(container, ua, system));
+       layout.next(container);
+       logoutJButton.setEnabled(true);
     }//GEN-LAST:event_loginJButtonActionPerformed
 
     private void logoutJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutJButtonActionPerformed

@@ -20,14 +20,58 @@ import java.util.ArrayList;
 public class EcoSystem extends Organization{
     
     private static EcoSystem business;
-    private RestaurantDirectory restaurantDirectory;
     private CustomerDirectory customerDirectory;
+    private RestaurantDirectory restaurantDirectory;
     private DeliveryManDirectory deliveryManDirectory;
-
-    public EcoSystem(RestaurantDirectory restaurantDirectory, CustomerDirectory customerDirectory, DeliveryManDirectory deliveryManDirectory) {
-
+    
+    public EcoSystem(CustomerDirectory customerDirectory,RestaurantDirectory restaurantDirectory,DeliveryManDirectory deliveryManDirectory)
+    {
+        this.customerDirectory = customerDirectory ;
         this.restaurantDirectory = restaurantDirectory;
+        this.deliveryManDirectory = deliveryManDirectory;
+    }
+
+    public static EcoSystem getBusiness() {
+        return business;
+    }
+
+    public static void setBusiness(EcoSystem business) {
+        EcoSystem.business = business;
+    }
+
+    public RestaurantDirectory getRestaurantDirectory() {
+        if(restaurantDirectory == null)
+        {
+            restaurantDirectory = new RestaurantDirectory();
+        }
+        return restaurantDirectory;
+    }
+
+    public void setRestaurantDirectory(RestaurantDirectory restaurantDirectory) {
+        this.restaurantDirectory = restaurantDirectory;
+    }
+
+    public CustomerDirectory getCustomerDirectory() {
+        if(customerDirectory == null)
+        {
+            customerDirectory = new CustomerDirectory();
+        }
+        return customerDirectory;
+    }
+
+    public void setCustomerDirectory(CustomerDirectory customerDirectory) {
         this.customerDirectory = customerDirectory;
+    }
+
+    public DeliveryManDirectory getDeliveryManDirectory() {
+        if(deliveryManDirectory == null)
+        {
+            deliveryManDirectory = new DeliveryManDirectory();
+        }
+        return deliveryManDirectory;
+    }
+
+    public void setDeliveryManDirectory(DeliveryManDirectory deliveryManDirectory) {
         this.deliveryManDirectory = deliveryManDirectory;
     }
     

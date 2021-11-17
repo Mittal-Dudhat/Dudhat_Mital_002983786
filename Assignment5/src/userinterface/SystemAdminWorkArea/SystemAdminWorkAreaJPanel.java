@@ -5,12 +5,20 @@
  */
 package userinterface.SystemAdminWorkArea;
 
+import Business.Customer.Customer;
+import Business.DeliveryMan.DeliveryMan;
 import Business.EcoSystem;
-
 import Business.Organization;
+import Business.Restaurant.Restaurant;
+import Business.Role.AdminRole;
+import Business.Role.CustomerRole;
+import Business.Role.DeliverManRole;
+import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -25,8 +33,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
      */
     JPanel userProcessContainer;
     EcoSystem ecosystem;
+    UserAccount userAccount;
     public SystemAdminWorkAreaJPanel(JPanel userProcessContainer,EcoSystem ecosystem) {
         initComponents();
+        btnUpdateSave.setVisible(false);
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
         populateTree();
@@ -58,17 +68,17 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         lblUserName = new javax.swing.JLabel();
-        txtName1 = new javax.swing.JTextField();
+        txtUserName = new javax.swing.JTextField();
         lblPassword = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblInfo = new javax.swing.JTable();
         btnUpdate = new javax.swing.JButton();
-        btnView = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         lblTableName = new javax.swing.JLabel();
         btCustomerReview = new javax.swing.JButton();
+        btnUpdateSave = new javax.swing.JButton();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -114,6 +124,11 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         lblPassword.setText("Password :");
 
         btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
         tblInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -137,10 +152,18 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tblInfo);
 
         btnUpdate.setText("Update");
-
-        btnView.setText("View");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         lblTableName.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
 
@@ -151,15 +174,20 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnUpdateSave.setText("Save");
+        btnUpdateSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateSaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -174,7 +202,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtName1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addGap(18, 18, 18)
@@ -187,8 +215,10 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                                         .addComponent(lblPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(btnUpdateSave, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(btnSubmit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE))))
                                     .addComponent(comboManageType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                         .addComponent(btCustomerReview, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -210,7 +240,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtName1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -218,14 +248,18 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSubmit)
-                .addGap(27, 27, 27)
-                .addComponent(lblTableName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(lblTableName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpdateSave)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnUpdate)
-                    .addComponent(btnView)
                     .addComponent(btnDelete))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
@@ -261,23 +295,168 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
             lblName.setText("Delivery Man Name :");
             lblTableName.setText("DeliveryMan Info :");
         }
+        if(Selectedindex >= 0)
+        {
+            populateTable();
+        } 
     }//GEN-LAST:event_comboManageTypeActionPerformed
 
     private void btCustomerReviewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCustomerReviewActionPerformed
         // TODO add your handling code here:
-        CustomerReviewJPanel manageCustomerReviewJPanel=new CustomerReviewJPanel(userProcessContainer);
+        CustomerReviewJPanel manageCustomerReviewJPanel=new CustomerReviewJPanel(userProcessContainer,ecosystem);
         userProcessContainer.add("Manage Customer Review",manageCustomerReviewJPanel);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_btCustomerReviewActionPerformed
 
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+        int Selectedindex = comboManageType.getSelectedIndex();
+        String name = txtName.getText();
+        String uname=txtUserName.getText();
+        String password=txtPassword.getText();
+        var userObject = new CustomerRole();
+        if(Selectedindex == 0)
+        {
+            ecosystem.getUserAccountDirectory().createUserAccount(name,uname,password, null, new CustomerRole());
+            Customer cust= ecosystem.getCustomerDirectory().createCustomer(name);
+        }
+        else if(Selectedindex == 1)
+        {
+            ecosystem.getUserAccountDirectory().createUserAccount(name,uname,password, null, new AdminRole());
+            Restaurant restaurant= ecosystem.getRestaurantDirectory().createRestaurantInfo(name);
+        }
+        else if(Selectedindex == 2)
+        {
+            ecosystem.getUserAccountDirectory().createUserAccount(name,uname,password, null, new DeliverManRole());
+            DeliveryMan deliveryMan= ecosystem.getDeliveryManDirectory().createDeliveryMan(name);
+        }
+        populateTable();
+        txtName.setText("");
+        txtUserName.setText("");
+        txtPassword.setText("");
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        
+        int selectedRow = tblInfo.getSelectedRow();
+        if(selectedRow>=0){
+            btnSubmit.setVisible(false);
+            btnUpdateSave.setVisible(true);
+            String username= (String)tblInfo.getValueAt(selectedRow, 1);
+            String pwd= (String)tblInfo.getValueAt(selectedRow, 2);
+            userAccount=ecosystem.getUserAccountDirectory().authenticateUser(username,pwd);
+            txtName.setText(userAccount.getName());
+            txtUserName.setText(userAccount.getUsername());
+            txtPassword.setText(userAccount.getPassword());
+        }
+        else {
+            JOptionPane.showMessageDialog(null,"Please select a row");
+        }
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnUpdateSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateSaveActionPerformed
+        // TODO add your handling code here:
+        String name = txtName.getText();
+        String uname=txtUserName.getText();
+        String password=txtPassword.getText();
+
+        ecosystem.getUserAccountDirectory().updateUserAccount(userAccount,name,uname,password);
+        populateTable();
+        txtName.setText("");
+        txtUserName.setText("");
+        txtPassword.setText("");
+        btnUpdateSave.setVisible(false);
+        btnSubmit.setVisible(true);
+    }//GEN-LAST:event_btnUpdateSaveActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        
+        int selectedRow = tblInfo.getSelectedRow();
+        int dropdownSelectedIndex = comboManageType.getSelectedIndex();
+        if(selectedRow>=0){
+            int selectionButton = JOptionPane.YES_NO_OPTION;
+            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete??","Warning",selectionButton);
+            if(selectionResult == JOptionPane.YES_OPTION){
+                String username= (String)tblInfo.getValueAt(selectedRow, 1);
+                String pwd= (String)tblInfo.getValueAt(selectedRow, 2);
+                UserAccount user=ecosystem.getUserAccountDirectory().authenticateUser(username,pwd);
+                ecosystem.getUserAccountDirectory().deleteUserAccount(user);
+                
+                if(dropdownSelectedIndex == 0)
+                {
+                    ecosystem.getCustomerDirectory().deleteCustomer(user.getName());
+                }
+                else if(dropdownSelectedIndex == 1)
+                {
+                    ecosystem.getRestaurantDirectory().deleteRestaurant(user.getName());
+                }
+                else if(dropdownSelectedIndex == 2)
+                {
+                    ecosystem.getDeliveryManDirectory().deleteDeliveryMan(user.getName());
+                }
+                populateTable();
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a Row!!");
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblInfo.getModel();
+        model.setRowCount(0);
+        int Selectedindex = comboManageType.getSelectedIndex();
+        if(Selectedindex == 0)
+        {
+            for (UserAccount user : ecosystem.getUserAccountDirectory().getUserAccountList()) {
+                if ("Business.Role.CustomerRole".equals(user.getRole().getClass().getName())) {
+                    
+                    System.out.println( user.getName());
+                    System.out.println(user.getUsername());
+                    System.out.println(user.getPassword());
+                    
+                    Object[] row = new Object[3];
+                    row[0] = user.getName();
+                    row[1] = user.getUsername();
+                    row[2] = user.getPassword();
+                    model.addRow(row);
+                }
+            }    
+        }
+        else if(Selectedindex == 1)
+        {
+            for (UserAccount user : ecosystem.getUserAccountDirectory().getUserAccountList()) {
+                if ("Business.Role.AdminRole".equals(user.getRole().getClass().getName())) {
+                    Object[] row = new Object[3];
+                    row[0] = user.getName();
+                    row[1] = user.getUsername();
+                    row[2] = user.getPassword();
+                    model.addRow(row);
+                }
+            }    
+        }
+        else if(Selectedindex == 2)
+        {
+            for (UserAccount user : ecosystem.getUserAccountDirectory().getUserAccountList()) {
+                if ("Business.Role.DeliverManRole".equals(user.getRole().getClass().getName())) {
+                    Object[] row = new Object[3];
+                    row[0] = user.getName();
+                    row[1] = user.getUsername();
+                    row[2] = user.getPassword();
+                    model.addRow(row);
+                }
+            }    
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCustomerReview;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JButton btnView;
+    private javax.swing.JButton btnUpdateSave;
     private javax.swing.JComboBox<String> comboManageType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -293,7 +472,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel lblUserName;
     private javax.swing.JTable tblInfo;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtName1;
     private javax.swing.JTextField txtPassword;
+    private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 }

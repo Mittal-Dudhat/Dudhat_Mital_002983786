@@ -5,10 +5,44 @@
  */
 package Business.DeliveryMan;
 
+import Business.Order.Order;
+import java.util.ArrayList;
+
 /**
  *
  * @author harold
  */
 public class DeliveryMan {
+    private String Name;
+    private String UserName;
+    private ArrayList<Order> orderList;
+
+    public DeliveryMan(String UserName){
+        this.UserName=UserName;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String Name) {
+        this.Name = Name;
+    }
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
+    }
+    
+    public ArrayList<Order> getOrderList() {
+        return orderList;
+    }
+
+    public void setOrderList(ArrayList<Order> orderList) {
+        this.orderList = orderList;
+    }
     
 }
