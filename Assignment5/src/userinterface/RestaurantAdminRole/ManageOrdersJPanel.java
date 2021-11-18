@@ -5,6 +5,16 @@
  */
 package userinterface.RestaurantAdminRole;
 
+import Business.Customer.Customer;
+import Business.EcoSystem;
+import Business.Order.Order;
+import Business.Restaurant.Restaurant;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Dhaval
@@ -14,10 +24,43 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageOrdersJPanel
      */
-    public ManageOrdersJPanel() {
+    EcoSystem ecoSystem;
+    UserAccount userAccount;
+    JPanel userProcessContainer;
+    public ManageOrdersJPanel(EcoSystem ecoSystem,UserAccount userAccount,JPanel userProcessContainer) {
         initComponents();
+        this.ecoSystem = ecoSystem;
+        this.userAccount = userAccount;
+        this.userProcessContainer = userProcessContainer;
+        populateOrderTable();
     }
 
+    private void populateOrderTable() {
+        DefaultTableModel model = (DefaultTableModel)tblOrders.getModel();
+        model.setRowCount(0);
+        for (Restaurant restaurant :ecoSystem.getRestaurantDirectory().getRestaurantList())
+        {
+            if (restaurant.getRestaurantName().equals(userAccount.getName())) 
+            {
+               for(Order order:restaurant.getOrderList())
+               {
+                   if(order.getStatus() != "Delivered")
+                   {
+                        Object[] row = new Object[6];
+                        row[0] = order.getOrderId();
+                        row[1] = order.getRestaurantName();
+                        row[2] = order.getDeliveryAddress();
+                        row[3] = order.getOrderDate();
+                        row[4] = order.getTotalAmount();
+                        row[5] = order.getCustComment();
+                        model.addRow(row);
+                   }
+               }
+                
+            } 
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,12 +75,6 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         lblOrderInfo = new javax.swing.JLabel();
         btnAssignDel = new javax.swing.JButton();
         btnViewOrder = new javax.swing.JButton();
-        btnRefresh = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        orderStatusCombo = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        btnChangeStatus = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         tblOrders.setModel(new javax.swing.table.DefaultTableModel(
@@ -65,66 +102,39 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         lblOrderInfo.setText("Order Information :");
 
         btnAssignDel.setText("Assign Delivery Man");
+        btnAssignDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignDelActionPerformed(evt);
+            }
+        });
 
         btnViewOrder.setText("View Order");
 
-        btnRefresh.setText("Refresh");
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Dish Name", "Description", "Amount"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
             }
         });
-        jScrollPane3.setViewportView(jTable2);
-
-        orderStatusCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ready to delivery", "Reject" }));
-
-        jLabel1.setText("Change Order Status");
-
-        btnChangeStatus.setText("Change Status");
-
-        btnBack.setText("Back");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblOrderInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAssignDel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnViewOrder)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 20, Short.MAX_VALUE))
+                        .addComponent(btnViewOrder)))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(orderStatusCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnChangeStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnBack))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -132,39 +142,46 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(lblOrderInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAssignDel)
                     .addComponent(btnViewOrder)
-                    .addComponent(btnRefresh))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(orderStatusCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnChangeStatus))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBack)
-                .addContainerGap(246, Short.MAX_VALUE))
+                    .addComponent(btnBack))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAssignDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignDelActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblOrders.getSelectedRow();
+        if(selectedRow<0){
+            JOptionPane.showMessageDialog(null,"Please select a row from the table to assign details","Warning",JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            Order order  = (Order)tblOrders.getValueAt(selectedRow, 0);           
+            AssignDeliveryMan viewOrder=new AssignDeliveryMan(userProcessContainer,userAccount,order,ecoSystem);
+            userProcessContainer.add("View Order",viewOrder);
+            CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        }
+    }//GEN-LAST:event_btnAssignDelActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignDel;
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnChangeStatus;
-    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnViewOrder;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblOrderInfo;
-    private javax.swing.JComboBox<String> orderStatusCombo;
     private javax.swing.JTable tblOrders;
     // End of variables declaration//GEN-END:variables
 }

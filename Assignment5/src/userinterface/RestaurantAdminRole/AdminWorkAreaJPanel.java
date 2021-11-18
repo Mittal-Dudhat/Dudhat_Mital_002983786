@@ -96,7 +96,7 @@ public class AdminWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnManageMenuActionPerformed
 
     private void btnManageOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageOrderActionPerformed
-        ManageOrdersJPanel manageOrder=new ManageOrdersJPanel();
+        ManageOrdersJPanel manageOrder=new ManageOrdersJPanel(ecosystem,userAccount,userProcessContainer);
         userProcessContainer.add("Manage Oders",manageOrder);
         CardLayout layout=(CardLayout)userProcessContainer.getLayout();
         layout.next(userProcessContainer);

@@ -5,6 +5,15 @@
  */
 package userinterface.RestaurantAdminRole;
 
+import Business.DeliveryMan.DeliveryMan;
+import Business.EcoSystem;
+import Business.Order.Order;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Dhaval
@@ -14,8 +23,29 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
     /**
      * Creates new form AssignDeliveryMan
      */
-    public AssignDeliveryMan() {
+    EcoSystem ecoSystem;
+    UserAccount userAccount;
+    JPanel userProcessContainer;
+    Order order;
+    
+    public AssignDeliveryMan(JPanel userProcessContainer,UserAccount userAccount,Order order,EcoSystem ecoSystem) {
         initComponents();
+        this.ecoSystem = ecoSystem;
+        this.userAccount = userAccount;
+        this.userProcessContainer=userProcessContainer;
+        this.order = order;
+        populateTable();
+    }
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel) tblAssignDeliveryMan.getModel();
+        model.setRowCount(0);
+        
+        for(DeliveryMan deliveryMan1:ecoSystem.getDeliveryManDirectory().getDeliveryManList())
+        {
+            Object[] row = new Object[1];
+            row[0] = deliveryMan1;
+            model.addRow(row);
+        }
     }
 
     /**
@@ -28,10 +58,11 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblAssignDeliveryMan = new javax.swing.JTable();
         btnAssignOrder = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblAssignDeliveryMan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -50,9 +81,21 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblAssignDeliveryMan);
 
         btnAssignOrder.setText("Assign Order");
+        btnAssignOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignOrderActionPerformed(evt);
+            }
+        });
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -61,25 +104,55 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAssignOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAssignOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAssignOrder)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAssignOrder)
+                    .addComponent(btnBack))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAssignOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignOrderActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblAssignDeliveryMan.getSelectedRow();
+        if(selectedRow<0){
+            JOptionPane.showMessageDialog(null,"Please select a row from the table to view details","Warning",JOptionPane.WARNING_MESSAGE);
+        }
+        else
+        {
+            DeliveryMan deliveryMan  = (DeliveryMan)tblAssignDeliveryMan.getValueAt(selectedRow, 0);   
+            deliveryMan.getOrderList().add(order);
+            order.setStatus("Assign to Deliveryman");
+        }
+    }//GEN-LAST:event_btnAssignOrderActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignOrder;
+    private javax.swing.JButton btnBack;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblAssignDeliveryMan;
     // End of variables declaration//GEN-END:variables
 }
