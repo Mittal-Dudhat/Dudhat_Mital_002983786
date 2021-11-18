@@ -51,7 +51,7 @@ public class MenuOrder extends javax.swing.JPanel {
         {
             row[0] = dish.getdishName();
             row[1] = dish.getDescription();
-            row[2] = dish.getPrice();
+            row[2] = dish.getDishAmount();
             model.addRow(row);
         }  
     }
@@ -188,9 +188,14 @@ public class MenuOrder extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Please select a row from the table to add to cart","Warning",JOptionPane.WARNING_MESSAGE);
         }
         else{
-            Dishes item=(Dishes)tblMenu.getValueAt(selectedRow, 0);
-            cartMenuList.add(item);
-            populateCartInfo();    
+            for(Dishes dish :restaurant.getMenu())
+            {
+                if(dish.getdishName() == (String)tblMenu.getValueAt(selectedRow, 0))
+                {
+                    cartMenuList.add(dish);
+                    populateCartInfo(); 
+                }
+            }
         }
     }//GEN-LAST:event_btnAddToCartActionPerformed
 
@@ -201,20 +206,25 @@ public class MenuOrder extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Please select a row from the table to remove details","Warning",JOptionPane.WARNING_MESSAGE);
         }
         else{
-            Dishes item=(Dishes)tblAddToCart.getValueAt(selectedRow, 0);
-            totalAmount = totalAmount-Integer.parseInt(item.getPrice());
-            cartMenuList.remove(item);
-            DefaultTableModel model = (DefaultTableModel) tblAddToCart.getModel();
-            model.setRowCount(0);
-            Object[] row = new Object[3];
-            for(Dishes dish:cartMenuList)
+            for(Dishes item :restaurant.getMenu())
             {
-                row[0] = dish.getdishName();
-                row[1] = dish.getDescription();
-                row[2] = dish.getPrice();
-                model.addRow(row);
+                if(item.getdishName() == (String)tblMenu.getValueAt(selectedRow, 0))
+                {
+                    totalAmount = totalAmount-item.getDishAmount();
+                    cartMenuList.remove(item);
+                    DefaultTableModel model = (DefaultTableModel) tblAddToCart.getModel();
+                    model.setRowCount(0);
+                    Object[] row = new Object[3];
+                    for(Dishes dish:cartMenuList)
+                    {
+                        row[0] = dish.getdishName();
+                        row[1] = dish.getDescription();
+                        row[2] = dish.getDishAmount();
+                        model.addRow(row);
+                    }
+                    txtTotalAmount.setText(String.valueOf(totalAmount));
+                }
             }
-            txtTotalAmount.setText(String.valueOf(totalAmount));
         }
     }//GEN-LAST:event_btnRemoveFromCartActionPerformed
 
@@ -233,10 +243,14 @@ public class MenuOrder extends javax.swing.JPanel {
         }
         restaurant.addOrder(restaurant.getRestaurantName(), userAccount.getName(), null, cartMenuList, totalAmount, address,ContactNo);
         for(Customer cust:ecoSystem.getCustomerDirectory().getCustList()){
-            if(userAccount.getUsername().equals(cust.getUserName())){
+            if(userAccount.getName().equals(cust.getName())){
                 cust.addOrder(restaurant.getRestaurantName(), userAccount.getName(), null, cartMenuList, totalAmount , address,ContactNo);
+                System.out.println(cust.getOrderList().size());
             }
         }
+        System.out.println(restaurant.getRestaurantName());
+        System.out.println(restaurant.getOrderList().size());
+        JOptionPane.showMessageDialog(null,"Order Added successfully");
     }//GEN-LAST:event_btnOrderActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -258,8 +272,8 @@ public class MenuOrder extends javax.swing.JPanel {
         {
             row[0] = dish.getdishName();
             row[1] = dish.getDescription();
-            row[2] = dish.getPrice();
-            totalAmount = totalAmount+Integer.parseInt(dish.getPrice());
+            row[2] = dish.getDishAmount();
+            totalAmount = totalAmount + dish.getDishAmount();
             model.addRow(row);
         }
         txtTotalAmount.setText(String.valueOf(totalAmount));

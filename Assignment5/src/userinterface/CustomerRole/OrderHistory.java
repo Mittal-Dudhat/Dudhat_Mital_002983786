@@ -41,10 +41,19 @@ public class OrderHistory extends javax.swing.JPanel {
     private void populateOrderHistoryTable() {
         DefaultTableModel model = (DefaultTableModel)tblOrders.getModel();
         model.setRowCount(0);
+        for (Restaurant restaurant :ecoSystem.getRestaurantDirectory().getRestaurantList())
+        {
+             System.out.println("Order List Restro");
+            System.out.println(restaurant.getMenu().size());
+        }
         for (Customer customer:ecoSystem.getCustomerDirectory().getCustList())
         {
+            System.out.println("inside");
+            System.out.println(customer.getName());
+            System.out.println(userAccount.getName());
             if (customer.getName().equals(userAccount.getName())) 
-            { 
+            {
+                System.out.println(customer.getOrderList().size());
                for(Order order:customer.getOrderList())
                {
                    if(order.getStatus() == "Delivered")

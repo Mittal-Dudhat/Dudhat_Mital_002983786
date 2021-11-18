@@ -22,8 +22,8 @@ public class Customer {
     private ArrayList<Order> orderList;
     int id = 1;
     
-    public Customer(String UserName){
-        this.UserName=UserName;
+    public Customer(String CustomerName){
+        this.Name=CustomerName;
         orderList = new ArrayList<Order>();
     }
 

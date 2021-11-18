@@ -25,7 +25,7 @@ public class Restaurant {
     public Restaurant(String RestaurantName){
         this.RestaurantName = RestaurantName;
         orderList = new ArrayList<Order>(); 
-        menuList = new ArrayList<Dishes>();
+        //menuList = new ArrayList<Dishes>();
     }
     
     public String getRestaurantName() {

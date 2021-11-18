@@ -110,7 +110,15 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
-        
+        int selectedRow = workRequestJTable.getSelectedRow();
+        if (selectedRow < 0){
+            return;
+        }
+        Order order = (Order)workRequestJTable.getValueAt(selectedRow, 0); 
+        ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, order);
+        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);        
 
         
     }//GEN-LAST:event_processJButtonActionPerformed

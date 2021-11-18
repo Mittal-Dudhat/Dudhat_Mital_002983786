@@ -23,7 +23,6 @@ public class RestaurantDirectory {
     public Restaurant createRestaurantInfo(String uName){
             restaurant= new Restaurant(uName);
             restaurantList.add(restaurant);
-
             return restaurant;
     }
     
@@ -63,4 +62,10 @@ public class RestaurantDirectory {
         restraurant.setAddress(address);
         restraurant.setContactNo(number);
     }
+    
+   /* public void updateDishes(Dishes dish,String dishName,String description, int Amount){
+        dish.setdishName(dishName);
+        dish.setDescription(description);
+        dish.setDishAmount(Amount);
+    }*/
 }

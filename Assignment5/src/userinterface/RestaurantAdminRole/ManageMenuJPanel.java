@@ -9,6 +9,8 @@ import Business.EcoSystem;
 import Business.Restaurant.Dishes;
 import Business.Restaurant.Restaurant;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,6 +26,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
     EcoSystem ecosystem;
     UserAccount userAccount;
     JPanel userProcessContainer;
+    Dishes menu;
     
     public ManageMenuJPanel(JPanel userProcessContainer,UserAccount userAccount, EcoSystem ecosystem) {
         initComponents();
@@ -52,7 +55,6 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         btnAddDish = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblMenu = new javax.swing.JTable();
-        btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
@@ -92,13 +94,6 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblMenu);
 
-        btnUpdate.setText("Update");
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
-            }
-        });
-
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +102,11 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         });
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -116,32 +116,27 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDishName, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(142, 142, 142)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblDishName, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtDishName, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnAddDish, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnBack)))
-                        .addGap(0, 214, Short.MAX_VALUE))
+                            .addComponent(txtDishName, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnAddDish, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1)))
-                .addContainerGap())
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(304, 304, 304))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {lblAmount, lblDescription, lblDishName});
@@ -165,15 +160,13 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
                     .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAddDish)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnDelete))
-                .addGap(38, 38, 38)
-                .addComponent(btnBack)
-                .addContainerGap(178, Short.MAX_VALUE))
+                    .addComponent(btnDelete)
+                    .addComponent(btnBack))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblAmount, lblDescription, lblDishName});
@@ -188,46 +181,73 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         String dishName=txtDishName.getText();
         String description = txtDescription.getText();
-        String amount=txtAmount.getText();
+        int amount=Integer.parseInt(txtAmount.getText());
        
         for(Restaurant restro:ecosystem.getRestaurantDirectory().getRestaurantList()){
            if(restro.getRestaurantName().equals(userAccount.getName())){
                 Dishes dishMenu = new Dishes();
                 dishMenu.setdishName(dishName);
                 dishMenu.setDescription(description);
-                dishMenu.setPrice(amount);
+                dishMenu.setDishAmount(amount);
                 ecosystem.getRestaurantDirectory().AddMenuDishes(restro,dishMenu);
             }   
         }
+        txtDishName.setText("");
+        txtDescription.setText("");
+        txtAmount.setText("");
         populateTable();
     }//GEN-LAST:event_btnAddDishActionPerformed
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tblMenu.getSelectedRow();
+        if(selectedRow>=0){
+            int selectionButton = JOptionPane.YES_NO_OPTION;
+            int selectionResult = JOptionPane.showConfirmDialog(null, "Are you sure to delete??","Warning",selectionButton);
+            if(selectionResult == JOptionPane.YES_OPTION){
+                for(Restaurant restro:ecosystem.getRestaurantDirectory().getRestaurantList()){
+                    if(restro.getRestaurantName().equals(userAccount.getName())){
+                        for(Dishes dish: restro.getMenu())
+                        {
+                            if(dish.getdishName()== (String)tblMenu.getValueAt(selectedRow, 0))
+                            {
+                                menu = dish;
+                            }
+                        }
+                        ecosystem.getRestaurantDirectory().DeleteDishes(restro, menu);
+                    }   
+                }
+                populateTable();
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Please select a Row!!");
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tblMenu.getModel();
         model.setRowCount(0);
         for (Restaurant restaurant:ecosystem.getRestaurantDirectory().getRestaurantList())
         {
-            if (restaurant.getRestaurantName().equals(userAccount.getUsername())) 
+            if (restaurant.getRestaurantName().equals(userAccount.getName())) 
             { 
+                System.out.println(restaurant.getMenu().size());
                for(Dishes menu:restaurant.getMenu())
                {
                     Object[] row = new Object[3];
                     row[0] = menu.getdishName();
                     row[1] = menu.getDescription();
-                    row[2] = menu.getPrice();
+                    row[2] = menu.getDishAmount();
                     model.addRow(row);
-               }
-                
+               }  
             }
-            
         }
     }
 
@@ -235,7 +255,6 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnAddDish;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAmount;
     private javax.swing.JLabel lblDescription;

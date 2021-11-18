@@ -29,13 +29,12 @@
                   <Component id="txtRestaurantName" min="-2" pref="162" max="-2" attributes="0"/>
                   <Component id="txtAddress" min="-2" pref="162" max="-2" attributes="0"/>
                   <Component id="txtPhoneNo" min="-2" pref="162" max="-2" attributes="0"/>
-                  <Component id="btnUpdate" alignment="0" min="-2" pref="104" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="btnBack" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnUpdate" alignment="0" pref="104" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="73" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="btnBack" min="-2" pref="92" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -61,9 +60,9 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnUpdate" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="46" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="btnBack" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+              <EmptySpace pref="90" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

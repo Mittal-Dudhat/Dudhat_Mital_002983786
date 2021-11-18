@@ -11,7 +11,7 @@ package Business.Restaurant;
  */
 public class Dishes {
     private String dishName;
-    private String price;
+    private int dishAmount;
     private String description;
 
     public String getdishName() {
@@ -22,12 +22,12 @@ public class Dishes {
         this.dishName = name;
     }
 
-    public String getPrice() {
-        return price;
+    public int getDishAmount() {
+        return dishAmount;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
+    public void setDishAmount(int amount) {
+        this.dishAmount = amount;
     }
 
     public String getDescription() {

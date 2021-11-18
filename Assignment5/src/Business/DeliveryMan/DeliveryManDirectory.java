@@ -15,6 +15,10 @@ public class DeliveryManDirectory {
     private DeliveryMan deliveryMan;
     private ArrayList<DeliveryMan> deliveryManList;
 
+    public DeliveryManDirectory(){
+        this.deliveryManList=new ArrayList<DeliveryMan>();
+    }
+    
     public ArrayList<DeliveryMan> getDeliveryManList() {
         return deliveryManList;
     }

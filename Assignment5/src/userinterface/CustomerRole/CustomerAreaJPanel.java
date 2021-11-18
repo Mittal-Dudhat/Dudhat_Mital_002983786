@@ -156,11 +156,16 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Please select a row from the table to view details","Warning",JOptionPane.WARNING_MESSAGE);
         }
         else{
-           Restaurant restaurant = (Restaurant)tblRestaurantInfo.getValueAt(selectedRow, 0);
-           MenuOrder menuOrder=new MenuOrder(userProcessContainer,userAccount,ecoSystem,restaurant);
-           userProcessContainer.add("Manage Orders",menuOrder);
-           CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-           layout.next(userProcessContainer);
+           for(Restaurant restaurant:ecoSystem.getRestaurantDirectory().getRestaurantList())
+           {
+            if(restaurant.getRestaurantName().equals((String)tblRestaurantInfo.getValueAt(selectedRow, 0)))
+            {
+                MenuOrder menuOrder=new MenuOrder(userProcessContainer,userAccount,ecoSystem,restaurant);
+                userProcessContainer.add("Manage Orders",menuOrder);
+                CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+                layout.next(userProcessContainer);
+            }
+          }
         }
     }//GEN-LAST:event_btnOrderFoodActionPerformed
 

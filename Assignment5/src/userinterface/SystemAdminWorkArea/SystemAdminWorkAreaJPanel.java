@@ -364,6 +364,31 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         String password=txtPassword.getText();
 
         ecosystem.getUserAccountDirectory().updateUserAccount(userAccount,name,uname,password);
+        for(DeliveryMan del : ecosystem.getDeliveryManDirectory().getDeliveryManList())
+        {
+            System.out.println("in");
+            System.out.println(name);
+            System.out.println(del.getUserName());
+            if(del.getUserName().equals(name))
+            {
+                del.setName(name);
+                del.setUserName("");
+                System.out.println("in2");
+                System.out.println(del.getName());
+            }
+        }
+        for(Restaurant res : ecosystem.getRestaurantDirectory().getRestaurantList())
+        {
+            System.out.println("in");
+            System.out.println(name);
+            System.out.println(res.getRestaurantName());
+            if(res.getRestaurantName().equals(name))
+            {
+                res.setRestaurantName(name);
+                System.out.println("in2");
+                System.out.println(res.getRestaurantName());
+            }
+        }
         populateTable();
         txtName.setText("");
         txtUserName.setText("");

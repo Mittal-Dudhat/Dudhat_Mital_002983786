@@ -17,8 +17,8 @@ public class DeliveryMan {
     private String UserName;
     private ArrayList<Order> orderList;
 
-    public DeliveryMan(String UserName){
-        this.UserName=UserName;
+    public DeliveryMan(String Name){
+        this.Name=Name;
     }
 
     public String getName() {
