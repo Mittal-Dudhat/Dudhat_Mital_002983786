@@ -7,6 +7,7 @@ package userinterface.CustomerRole;
 
 import Business.Customer.Customer;
 import Business.EcoSystem;
+import Business.Order.Order;
 import Business.Restaurant.Dishes;
 import Business.Restaurant.Restaurant;
 import Business.UserAccount.UserAccount;
@@ -208,10 +209,10 @@ public class MenuOrder extends javax.swing.JPanel {
         else{
             for(Dishes item :restaurant.getMenu())
             {
-                if(item.getdishName() == (String)tblMenu.getValueAt(selectedRow, 0))
+                if(item.getdishName() == (String)tblAddToCart.getValueAt(selectedRow, 0))
                 {
                     totalAmount = totalAmount-item.getDishAmount();
-                    cartMenuList.remove(item);
+                    cartMenuList.remove(selectedRow);
                     DefaultTableModel model = (DefaultTableModel) tblAddToCart.getModel();
                     model.setRowCount(0);
                     Object[] row = new Object[3];
@@ -230,26 +231,16 @@ public class MenuOrder extends javax.swing.JPanel {
 
     private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
         // TODO add your handling code here:
-        String address="";
-        Long ContactNo=Long.MIN_VALUE;
-        if(txtAddress.getText().trim() == "" || txtContactNo.getText().trim() == "")
-        {
-           JOptionPane.showMessageDialog(null,"Please Enter Address And ContactNo","Warning",JOptionPane.WARNING_MESSAGE);  
-        }
-        else
-        {
-           address= txtAddress.getText();
-           ContactNo= Long.parseLong(txtContactNo.getText());
-        }
-        restaurant.addOrder(restaurant.getRestaurantName(), userAccount.getName(), null, cartMenuList, totalAmount, address,ContactNo);
+        String address=txtAddress.getText();
+        Long ContactNo= Long.parseLong(txtContactNo.getText());
+        restaurant.addOrder(restaurant.getRestaurantName(), userAccount.getName(), null, cartMenuList, totalAmount , address,ContactNo);
         for(Customer cust:ecoSystem.getCustomerDirectory().getCustList()){
             if(userAccount.getName().equals(cust.getName())){
-                cust.addOrder(restaurant.getRestaurantName(), userAccount.getName(), null, cartMenuList, totalAmount , address,ContactNo);
-                System.out.println(cust.getOrderList().size());
+                System.out.println(cust.getCustomerOrderList().size() + "Previous Customer Order List");
+                cust.addOrder(restaurant.getRestaurantName(), userAccount.getName(), null, cartMenuList, totalAmount, address,ContactNo);
+                System.out.println(cust.getCustomerOrderList().size() + "Customer Order List");
             }
         }
-        System.out.println(restaurant.getRestaurantName());
-        System.out.println(restaurant.getOrderList().size());
         JOptionPane.showMessageDialog(null,"Order Added successfully");
     }//GEN-LAST:event_btnOrderActionPerformed
 
@@ -265,6 +256,7 @@ public class MenuOrder extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBackActionPerformed
 
     public void populateCartInfo(){
+        totalAmount=0;
         DefaultTableModel model = (DefaultTableModel)tblAddToCart.getModel();
         model.setRowCount(0);
         Object[] row = new Object[3];

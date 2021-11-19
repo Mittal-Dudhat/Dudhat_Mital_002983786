@@ -5,6 +5,7 @@
  */
 package Business.Restaurant;
 
+import Business.Customer.Customer;
 import Business.Order.Order;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -64,19 +65,21 @@ public class Restaurant {
         this.ContactNo = ContactNo;
     }
     
-    public void addOrder(String restaurantName, String customerName, String deliverMan, ArrayList<Dishes> Order, int TotalAmt, String deliveryAddress, Long ContatcNo) {
+    public void addOrder(String restaurantName, String customerName, String deliverMan, ArrayList<Dishes> dishList, int TotalAmt, String deliveryAddress, Long ContatcNo) {
+        System.out.println("Restaurant Add ORder");
         Order order=new Order();
         order.setOrderId(id);
         order.setCustomerName(customerName);
         order.setRestaurantName(restaurantName);
         order.setDeliverMan(deliverMan);
-        order.setOrder(Order);
+        order.setOrder(dishList);
         order.setTotalAmount(TotalAmt);
         order.setDeliveryAddress(deliveryAddress);
         order.setStatus("New Order");
-        order.setOrderDate(LocalDateTime.now());
+        //order.setOrderDate(LocalDateTime.now());
         order.setContactNo(ContatcNo);
         orderList.add(order);
+        System.out.println("Restaurant Add ORder Done");
         id++;
     }
     

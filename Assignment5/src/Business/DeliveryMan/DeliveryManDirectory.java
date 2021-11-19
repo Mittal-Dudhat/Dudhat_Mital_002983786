@@ -36,6 +36,10 @@ public class DeliveryManDirectory {
     }
     
     public DeliveryMan createDeliveryMan(String userName){
+        if(deliveryManList == null)
+        {
+            deliveryManList = new ArrayList<DeliveryMan>();
+        }
         deliveryMan= new DeliveryMan(userName);
         deliveryManList.add(deliveryMan);
         return deliveryMan;

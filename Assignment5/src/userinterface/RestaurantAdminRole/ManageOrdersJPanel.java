@@ -42,17 +42,18 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         {
             if (restaurant.getRestaurantName().equals(userAccount.getName())) 
             {
+                //System.out.println(restaurant.getOrderList().size());
+                //System.out.println(restaurant.getOrderList());
                for(Order order:restaurant.getOrderList())
                {
                    if(order.getStatus() != "Delivered")
                    {
-                        Object[] row = new Object[6];
+                        Object[] row = new Object[5];
                         row[0] = order.getOrderId();
-                        row[1] = order.getRestaurantName();
+                        row[1] = order.getCustomerName();
                         row[2] = order.getDeliveryAddress();
-                        row[3] = order.getOrderDate();
-                        row[4] = order.getTotalAmount();
-                        row[5] = order.getCustComment();
+                        row[3] = order.getTotalAmount();
+                        row[4] = order.getStatus();
                         model.addRow(row);
                    }
                }
@@ -109,6 +110,11 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         });
 
         btnViewOrder.setText("View Order");
+        btnViewOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewOrderActionPerformed(evt);
+            }
+        });
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -160,11 +166,23 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Please select a row from the table to assign details","Warning",JOptionPane.WARNING_MESSAGE);
         }
         else{
-            Order order  = (Order)tblOrders.getValueAt(selectedRow, 0);           
-            AssignDeliveryMan viewOrder=new AssignDeliveryMan(userProcessContainer,userAccount,order,ecoSystem);
-            userProcessContainer.add("View Order",viewOrder);
-            CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-            layout.next(userProcessContainer);
+            int OrderId  = (int)tblOrders.getValueAt(selectedRow, 0);
+            for (Restaurant restaurant :ecoSystem.getRestaurantDirectory().getRestaurantList())
+            {
+            if (restaurant.getRestaurantName().equals(userAccount.getName())) 
+            {
+               for(Order order:restaurant.getOrderList())
+               {
+                   if(order.getOrderId() == OrderId)
+                   {
+                        AssignDeliveryMan viewOrder=new AssignDeliveryMan(userProcessContainer,userAccount,order,ecoSystem);
+                        userProcessContainer.add("View Order",viewOrder);
+                        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+                        layout.next(userProcessContainer);
+                   }
+               }
+            }
+            }
         }
     }//GEN-LAST:event_btnAssignDelActionPerformed
 
@@ -174,6 +192,34 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void btnViewOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrderActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblOrders.getSelectedRow();
+        if(selectedRow<0){
+            JOptionPane.showMessageDialog(null,"Please select a row from the table to view details","Warning",JOptionPane.WARNING_MESSAGE);
+        }
+        else{
+            int OrderId  = (int)tblOrders.getValueAt(selectedRow, 0);
+            for (Restaurant restaurant :ecoSystem.getRestaurantDirectory().getRestaurantList())
+            {
+            if (restaurant.getRestaurantName().equals(userAccount.getName())) 
+            {
+               for(Order order:restaurant.getOrderList())
+               {
+                   System.out.println(order.getOrder().size());
+                   if(order.getOrderId() == OrderId)
+                   {  
+                        ViewOrderDetailsPanel viewOrder = new ViewOrderDetailsPanel(userProcessContainer,userAccount,order,ecoSystem);
+                        userProcessContainer.add("View Order",viewOrder);
+                        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+                        layout.next(userProcessContainer);
+                   }
+               }
+            }
+            }
+        }
+    }//GEN-LAST:event_btnViewOrderActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -19,12 +19,12 @@ public class Customer {
     private String UserName;
     private String Address;
     private String PhoneNumber;
-    private ArrayList<Order> orderList;
+    private ArrayList<Order> CustomerOrderList;
     int id = 1;
     
     public Customer(String CustomerName){
         this.Name=CustomerName;
-        orderList = new ArrayList<Order>();
+        CustomerOrderList = new ArrayList<Order>();
     }
 
     public String getName() {
@@ -59,28 +59,34 @@ public class Customer {
         this.PhoneNumber = PhoneNumber;
     }
     
-     public void addOrder(String restaurantName, String customerName, String deliverMan, ArrayList<Dishes> Order, int TotalAmount, String deliveryAddress,Long ContactNo) {
+     public void addOrder(String restaurantName, String customerName, String deliverMan, ArrayList<Dishes> dishList, int TotalAmount, String deliveryAddress,Long ContactNo) {
+        if(CustomerOrderList == null)
+        {
+            CustomerOrderList=new ArrayList<Order>();
+        }
+        System.out.println("Customer Add ORder");
         Order order=new Order();
         order.setOrderId(id);
         order.setCustomerName(customerName);
         order.setRestaurantName(restaurantName);
         order.setDeliverMan(deliverMan);
-        order.setOrder(Order);
+        order.setOrder(dishList);
         order.setTotalAmount(TotalAmount);
         order.setDeliveryAddress(deliveryAddress);
         order.setStatus("New Order");
-        order.setOrderDate(LocalDateTime.now());
+        //order.setOrderDate(LocalDateTime.now());
         order.setContactNo(ContactNo);
-        orderList.add(order);
+        CustomerOrderList.add(order);
+        System.out.println("Customer Add ORder done");
         id++;
     }
      
-    public ArrayList<Order> getOrderList() {
-        return orderList;
+    public ArrayList<Order> getCustomerOrderList() {
+        return CustomerOrderList;
     }
 
-    public void setOrderList(ArrayList<Order> orderList) {
-        this.orderList = orderList;
+    public void setCustomerOrderList(ArrayList<Order> orderList) {
+        this.CustomerOrderList = orderList;
     }
     
 }

@@ -45,19 +45,19 @@ public class OrderHistory extends javax.swing.JPanel {
         {
             if (customer.getName().equals(userAccount.getName())) 
             {
-               for(Order order:customer.getOrderList())
+               for(Order order:customer.getCustomerOrderList())
                {
-                   if(order.getStatus() == "Delivered")
-                   {
-                        Object[] row = new Object[6];
+                   //if(order.getStatus() == "Delivered")
+                   //{
+                        Object[] row = new Object[5];
                         row[0] = order.getOrderId();
                         row[1] = order.getRestaurantName();
                         row[2] = order.getDeliveryAddress();
-                        row[3] = order.getOrderDate();
-                        row[4] = order.getTotalAmount();
-                        row[5] = order.getCustComment();
+                        //row[3] = order.getOrderDate();
+                        row[3] = order.getTotalAmount();
+                        row[4] = order.getCustComment();
                         model.addRow(row);
-                   }
+                   //}
                }
                 
             } 
@@ -85,20 +85,20 @@ public class OrderHistory extends javax.swing.JPanel {
 
         tblOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "OrderId", "Restaurant Name", "Delivery Address", "Order Date", "Order Amount", "Comment"
+                "OrderId", "Restaurant Name", "Delivery Address", "Order Amount", "Comment"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -163,7 +163,7 @@ public class OrderHistory extends javax.swing.JPanel {
                 {
                     if (customer.getName().equals(userAccount.getName())) 
                     { 
-                       for(Order order:customer.getOrderList())
+                       for(Order order:customer.getCustomerOrderList())
                        {
                            String Comment = txtComment.getText();
                             ecoSystem.getCustomerDirectory().updateOrder(order,Comment);

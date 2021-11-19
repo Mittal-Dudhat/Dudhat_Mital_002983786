@@ -27,9 +27,12 @@ public class ViewOrderDetailsPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     Order order;
     EcoSystem ecoSystem;
-    public ViewOrderDetailsPanel(EcoSystem ecoSystem) {
+    public ViewOrderDetailsPanel(JPanel userProcessContainer,UserAccount userAccount,Order order,EcoSystem ecoSystem) {
         initComponents();
         this.ecoSystem = ecoSystem;
+        this.userProcessContainer=userProcessContainer;
+        this.userAccount = userAccount;
+        this.order = order;
         populateOrderDetailsTable();
     }
     
@@ -123,7 +126,7 @@ public class ViewOrderDetailsPanel extends javax.swing.JPanel {
             order.setStatus("Ready to Deliver");
             for(Customer cust:ecoSystem.getCustomerDirectory().getCustList()){
                 if(order.getCustomerName().equals(cust.getUserName())){
-                    for(Order order : cust.getOrderList()){
+                    for(Order order : cust.getCustomerOrderList()){
                         order.setStatus("Ready to Deliver");
                     }
                 }
@@ -134,7 +137,7 @@ public class ViewOrderDetailsPanel extends javax.swing.JPanel {
             order.setStatus("Reject");
             for(Customer cust:ecoSystem.getCustomerDirectory().getCustList()){
                 if(order.getCustomerName().equals(cust.getUserName())){
-                    for(Order order : cust.getOrderList()){
+                    for(Order order : cust.getCustomerOrderList()){
                         order.setStatus("Reject");
                     }
                 }

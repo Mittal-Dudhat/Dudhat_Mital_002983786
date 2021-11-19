@@ -22,7 +22,7 @@ public class Order {
     private int totalAmount;
     private String status;
     private String deliveryAddress;
-    private LocalDateTime OrderDate;
+    //private LocalDateTime OrderDate;
     private Long ContactNo;
     private String custComment;
 
@@ -90,13 +90,13 @@ public class Order {
         this.deliveryAddress = deliveryAddress;
     }
 
-    public LocalDateTime getOrderDate() {
+   /* public LocalDateTime getOrderDate() {
         return OrderDate;
     }
 
     public void setOrderDate(LocalDateTime OrderDate) {
         this.OrderDate = OrderDate;
-    }
+    }*/
     
      public Long getContactNo() {
         return ContactNo;

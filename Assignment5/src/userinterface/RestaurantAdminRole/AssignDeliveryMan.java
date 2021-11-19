@@ -40,10 +40,10 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblAssignDeliveryMan.getModel();
         model.setRowCount(0);
         
-        for(DeliveryMan deliveryMan1:ecoSystem.getDeliveryManDirectory().getDeliveryManList())
+        for(DeliveryMan deliveryMan:ecoSystem.getDeliveryManDirectory().getDeliveryManList())
         {
             Object[] row = new Object[1];
-            row[0] = deliveryMan1;
+            row[0] = deliveryMan.getName();
             model.addRow(row);
         }
     }
@@ -61,6 +61,8 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
         tblAssignDeliveryMan = new javax.swing.JTable();
         btnAssignOrder = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblAssignDeliveryMan.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,12 +85,15 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblAssignDeliveryMan);
 
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 27, 406, 155));
+
         btnAssignOrder.setText("Assign Order");
         btnAssignOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAssignOrderActionPerformed(evt);
             }
         });
+        add(btnAssignOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 188, 175, -1));
 
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -96,35 +101,7 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
                 btnBackActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAssignOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAssignOrder)
-                    .addComponent(btnBack))
-                .addContainerGap(89, Short.MAX_VALUE))
-        );
+        add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 188, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAssignOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignOrderActionPerformed

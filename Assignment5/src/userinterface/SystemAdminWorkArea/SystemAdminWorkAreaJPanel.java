@@ -7,6 +7,7 @@ package userinterface.SystemAdminWorkArea;
 
 import Business.Customer.Customer;
 import Business.DeliveryMan.DeliveryMan;
+import Business.DeliveryMan.DeliveryManDirectory;
 import Business.EcoSystem;
 import Business.Organization;
 import Business.Restaurant.Restaurant;
@@ -364,31 +365,26 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         String password=txtPassword.getText();
 
         ecosystem.getUserAccountDirectory().updateUserAccount(userAccount,name,uname,password);
-        for(DeliveryMan del : ecosystem.getDeliveryManDirectory().getDeliveryManList())
+        DeliveryMan deliveryMan= ecosystem.getDeliveryManDirectory().createDeliveryMan(name);
+        /*DeliveryManDirectory dm = new DeliveryManDirectory();
+        System.out.println(dm.getDeliveryManList());
+        DeliveryMan deliveryMan= ecosystem.getDeliveryManDirectory().createDeliveryMan(name);
+        
+       for(DeliveryMan del : ecosystem.getDeliveryManDirectory().getDeliveryManList())
         {
-            System.out.println("in");
-            System.out.println(name);
-            System.out.println(del.getUserName());
-            if(del.getUserName().equals(name))
+            if(del.getName().equals(name))
             {
                 del.setName(name);
                 del.setUserName("");
-                System.out.println("in2");
-                System.out.println(del.getName());
             }
-        }
-        for(Restaurant res : ecosystem.getRestaurantDirectory().getRestaurantList())
+        }*/
+        /*for(Restaurant res : ecosystem.getRestaurantDirectory().getRestaurantList())
         {
-            System.out.println("in");
-            System.out.println(name);
-            System.out.println(res.getRestaurantName());
             if(res.getRestaurantName().equals(name))
             {
                 res.setRestaurantName(name);
-                System.out.println("in2");
-                System.out.println(res.getRestaurantName());
             }
-        }
+        }*/
         populateTable();
         txtName.setText("");
         txtUserName.setText("");
@@ -437,11 +433,6 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         {
             for (UserAccount user : ecosystem.getUserAccountDirectory().getUserAccountList()) {
                 if ("Business.Role.CustomerRole".equals(user.getRole().getClass().getName())) {
-                    
-                    System.out.println( user.getName());
-                    System.out.println(user.getUsername());
-                    System.out.println(user.getPassword());
-                    
                     Object[] row = new Object[3];
                     row[0] = user.getName();
                     row[1] = user.getUsername();
