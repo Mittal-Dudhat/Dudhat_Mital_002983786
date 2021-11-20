@@ -181,15 +181,11 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         String dishName=txtDishName.getText();
         String description = txtDescription.getText();
-        int amount=Integer.parseInt(txtAmount.getText());
+        String amount=txtAmount.getText();
        
         for(Restaurant restro:ecosystem.getRestaurantDirectory().getRestaurantList()){
            if(restro.getRestaurantName().equals(userAccount.getName())){
-                Dishes dishMenu = new Dishes();
-                dishMenu.setdishName(dishName);
-                dishMenu.setDescription(description);
-                dishMenu.setDishAmount(amount);
-                ecosystem.getRestaurantDirectory().AddMenuDishes(restro,dishMenu);
+                menu=ecosystem.getRestaurantDirectory().AddMenuDishes(restro,dishName, description, amount);
             }   
         }
         txtDishName.setText("");
@@ -238,7 +234,7 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         {
             if (restaurant.getRestaurantName().equals(userAccount.getName())) 
             { 
-                System.out.println(restaurant.getMenu().size());
+               
                for(Dishes menu:restaurant.getMenu())
                {
                     Object[] row = new Object[3];

@@ -5,7 +5,6 @@
  */
 package userinterface.RestaurantAdminRole;
 
-import Business.Customer.Customer;
 import Business.EcoSystem;
 import Business.Order.Order;
 import Business.Restaurant.Restaurant;
@@ -42,11 +41,9 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         {
             if (restaurant.getRestaurantName().equals(userAccount.getName())) 
             {
-                //System.out.println(restaurant.getOrderList().size());
-                //System.out.println(restaurant.getOrderList());
                for(Order order:restaurant.getOrderList())
                {
-                   if(order.getStatus() != "Delivered")
+                   if(!order.getStatus().equals("Delivered"))
                    {
                         Object[] row = new Object[5];
                         row[0] = order.getOrderId();
@@ -166,22 +163,22 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Please select a row from the table to assign details","Warning",JOptionPane.WARNING_MESSAGE);
         }
         else{
-            int OrderId  = (int)tblOrders.getValueAt(selectedRow, 0);
+            String OrderId  = (String)tblOrders.getValueAt(selectedRow, 0);
             for (Restaurant restaurant :ecoSystem.getRestaurantDirectory().getRestaurantList())
             {
-            if (restaurant.getRestaurantName().equals(userAccount.getName())) 
-            {
-               for(Order order:restaurant.getOrderList())
-               {
-                   if(order.getOrderId() == OrderId)
+                if (restaurant.getRestaurantName().equals(userAccount.getName())) 
+                {
+                   for(Order order:restaurant.getOrderList())
                    {
-                        AssignDeliveryMan viewOrder=new AssignDeliveryMan(userProcessContainer,userAccount,order,ecoSystem);
-                        userProcessContainer.add("View Order",viewOrder);
-                        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-                        layout.next(userProcessContainer);
+                       if(order.getOrderId().equals(OrderId))
+                       {
+                            AssignDeliveryMan viewOrder=new AssignDeliveryMan(userProcessContainer,userAccount,order,ecoSystem);
+                            userProcessContainer.add("View Order",viewOrder);
+                            CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+                            layout.next(userProcessContainer);
+                       }
                    }
-               }
-            }
+                }
             }
         }
     }//GEN-LAST:event_btnAssignDelActionPerformed
@@ -200,7 +197,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Please select a row from the table to view details","Warning",JOptionPane.WARNING_MESSAGE);
         }
         else{
-            int OrderId  = (int)tblOrders.getValueAt(selectedRow, 0);
+            String OrderId  = (String)tblOrders.getValueAt(selectedRow, 0);
             for (Restaurant restaurant :ecoSystem.getRestaurantDirectory().getRestaurantList())
             {
             if (restaurant.getRestaurantName().equals(userAccount.getName())) 
@@ -208,7 +205,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
                for(Order order:restaurant.getOrderList())
                {
                    System.out.println(order.getOrder().size());
-                   if(order.getOrderId() == OrderId)
+                   if(order.getOrderId().equals(OrderId))
                    {  
                         ViewOrderDetailsPanel viewOrder = new ViewOrderDetailsPanel(userProcessContainer,userAccount,order,ecoSystem);
                         userProcessContainer.add("View Order",viewOrder);

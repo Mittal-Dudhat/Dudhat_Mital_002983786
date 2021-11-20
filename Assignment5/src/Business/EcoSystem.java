@@ -23,7 +23,7 @@ public class EcoSystem extends Organization{
     private CustomerDirectory customerDirectory;
     private RestaurantDirectory restaurantDirectory;
     private DeliveryManDirectory deliveryManDirectory;
-    
+
     public EcoSystem(CustomerDirectory customerDirectory,RestaurantDirectory restaurantDirectory,DeliveryManDirectory deliveryManDirectory)
     {
         this.customerDirectory = customerDirectory ;

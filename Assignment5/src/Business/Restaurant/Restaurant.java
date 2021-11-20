@@ -4,10 +4,7 @@
  * and open the template in the editor.
  */
 package Business.Restaurant;
-
-import Business.Customer.Customer;
 import Business.Order.Order;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -25,8 +22,8 @@ public class Restaurant {
 
     public Restaurant(String RestaurantName){
         this.RestaurantName = RestaurantName;
-        orderList = new ArrayList<Order>(); 
-        //menuList = new ArrayList<Dishes>();
+        this.orderList = new ArrayList<Order>(); 
+        menuList = new ArrayList<Dishes>();
     }
     
     public String getRestaurantName() {
@@ -46,6 +43,10 @@ public class Restaurant {
     }
     
     public ArrayList<Dishes> getMenu() {
+        if(menuList == null)
+        {
+            menuList = new ArrayList<Dishes>();
+        }
         return menuList;
     }
     
@@ -65,10 +66,9 @@ public class Restaurant {
         this.ContactNo = ContactNo;
     }
     
-    public void addOrder(String restaurantName, String customerName, String deliverMan, ArrayList<Dishes> dishList, int TotalAmt, String deliveryAddress, Long ContatcNo) {
-        System.out.println("Restaurant Add ORder");
+    public void addOrder(String restaurantName, String customerName, String deliverMan, ArrayList<Dishes> dishList, String TotalAmt, String deliveryAddress, Long ContatcNo) {
         Order order=new Order();
-        order.setOrderId(id);
+        order.setOrderId(String.valueOf(id));
         order.setCustomerName(customerName);
         order.setRestaurantName(restaurantName);
         order.setDeliverMan(deliverMan);
@@ -76,10 +76,9 @@ public class Restaurant {
         order.setTotalAmount(TotalAmt);
         order.setDeliveryAddress(deliveryAddress);
         order.setStatus("New Order");
-        //order.setOrderDate(LocalDateTime.now());
         order.setContactNo(ContatcNo);
         orderList.add(order);
-        System.out.println("Restaurant Add ORder Done");
+        setOrderList(orderList);
         id++;
     }
     
@@ -89,5 +88,10 @@ public class Restaurant {
 
     public void setOrderList(ArrayList<Order> orderList) {
         this.orderList = orderList;
+    }
+    
+    @Override
+    public String toString() {
+        return RestaurantName;
     }
 }

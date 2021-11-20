@@ -7,24 +7,23 @@ package Business.Customer;
 
 import Business.Order.Order;
 import Business.Restaurant.Dishes;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
  *
- * @author harold
+ * @author Dhaval
  */
 public class Customer {
     private String Name;
     private String UserName;
     private String Address;
     private String PhoneNumber;
-    private ArrayList<Order> CustomerOrderList;
-    int id = 1;
+    private ArrayList<Order> OrderList;
+    int id=1;
     
     public Customer(String CustomerName){
         this.Name=CustomerName;
-        CustomerOrderList = new ArrayList<Order>();
+        OrderList = new ArrayList<Order>();
     }
 
     public String getName() {
@@ -58,15 +57,26 @@ public class Customer {
     public void setPhoneNumber(String PhoneNumber) {
         this.PhoneNumber = PhoneNumber;
     }
-    
-     public void addOrder(String restaurantName, String customerName, String deliverMan, ArrayList<Dishes> dishList, int TotalAmount, String deliveryAddress,Long ContactNo) {
-        if(CustomerOrderList == null)
+
+    public ArrayList<Order> getCustomerOrderList() {
+        if(OrderList == null)
         {
-            CustomerOrderList=new ArrayList<Order>();
+            OrderList = new ArrayList<Order>();
         }
-        System.out.println("Customer Add ORder");
+        return OrderList;
+    }
+
+    public void setCustomerOrderList(ArrayList<Order> CustomerOrderList) {
+        this.OrderList = CustomerOrderList;
+    }
+    
+    public void addOrder(String restaurantName, String customerName, String deliverMan,ArrayList<Dishes> dishList, String TotalAmount, String deliveryAddress,Long ContactNo) {
         Order order=new Order();
-        order.setOrderId(id);
+        if(id== 0)
+        {
+            id=1;
+        }
+        order.setOrderId(String.valueOf(id));
         order.setCustomerName(customerName);
         order.setRestaurantName(restaurantName);
         order.setDeliverMan(deliverMan);
@@ -74,19 +84,8 @@ public class Customer {
         order.setTotalAmount(TotalAmount);
         order.setDeliveryAddress(deliveryAddress);
         order.setStatus("New Order");
-        //order.setOrderDate(LocalDateTime.now());
         order.setContactNo(ContactNo);
-        CustomerOrderList.add(order);
-        System.out.println("Customer Add ORder done");
+        OrderList.add(order);
         id++;
     }
-     
-    public ArrayList<Order> getCustomerOrderList() {
-        return CustomerOrderList;
-    }
-
-    public void setCustomerOrderList(ArrayList<Order> orderList) {
-        this.CustomerOrderList = orderList;
-    }
-    
 }

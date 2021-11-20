@@ -112,9 +112,16 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
         }
         else
         {
-            DeliveryMan deliveryMan  = (DeliveryMan)tblAssignDeliveryMan.getValueAt(selectedRow, 0);   
-            deliveryMan.getOrderList().add(order);
-            order.setStatus("Assign to Deliveryman");
+            String deliveryManName  = (String)tblAssignDeliveryMan.getValueAt(selectedRow, 0); 
+            for(DeliveryMan deliveryMan:ecoSystem.getDeliveryManDirectory().getDeliveryManList())
+            {
+                if(deliveryMan.getName().equals(deliveryManName))
+                {
+                    deliveryMan.getOrderList().add(order);
+                    order.setStatus("Assign to Deliveryman");
+                    JOptionPane.showMessageDialog(null,"Order Assigned Successfully");
+                }
+            }
         }
     }//GEN-LAST:event_btnAssignOrderActionPerformed
 

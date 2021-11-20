@@ -6,7 +6,6 @@
 package Business.Order;
 
 import Business.Restaurant.Dishes;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -14,23 +13,22 @@ import java.util.ArrayList;
  * @author Dhaval
  */
 public class Order {
-    private int orderId;
+    private String orderId;
     private String restaurantName;
     private String customerName;
     private String deliverMan;
     private ArrayList<Dishes> Order;
-    private int totalAmount;
+    private String totalAmount;
     private String status;
     private String deliveryAddress;
-    //private LocalDateTime OrderDate;
     private Long ContactNo;
-    private String custComment;
+    //private String custComment;
 
-    public int getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(int orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -66,11 +64,11 @@ public class Order {
         this.Order = Order;
     }
 
-    public int getTotalAmount() {
+    public String getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(int cost) {
+    public void setTotalAmount(String cost) {
         this.totalAmount = cost;
     }
 
@@ -89,16 +87,9 @@ public class Order {
     public void setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
     }
-
-   /* public LocalDateTime getOrderDate() {
-        return OrderDate;
-    }
-
-    public void setOrderDate(LocalDateTime OrderDate) {
-        this.OrderDate = OrderDate;
-    }*/
     
-     public Long getContactNo() {
+   
+    public Long getContactNo() {
         return ContactNo;
     }
 
@@ -106,12 +97,17 @@ public class Order {
         this.ContactNo = ContactNo;
     }
     
-    public String getCustComment() {
+    /*public String getCustComment() {
         return custComment;
     }
 
     public void setCustComment(String custComment) {
         this.custComment = custComment;
+    }*/
+    
+    @Override
+    public String toString() {
+        return orderId;
     }
     
 }

@@ -11,6 +11,8 @@ import Business.Order.Order;
 import Business.Restaurant.Dishes;
 import Business.Restaurant.Restaurant;
 import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -41,26 +43,21 @@ public class OrderHistory extends javax.swing.JPanel {
     private void populateOrderHistoryTable() {
         DefaultTableModel model = (DefaultTableModel)tblOrders.getModel();
         model.setRowCount(0);
-        for (Customer customer:ecoSystem.getCustomerDirectory().getCustList())
-        {
-            if (customer.getName().equals(userAccount.getName())) 
+        for(Restaurant res : ecoSystem.getRestaurantDirectory().getRestaurantList())
+        {  
+            for(Order order:res.getOrderList())
             {
-               for(Order order:customer.getCustomerOrderList())
-               {
-                   //if(order.getStatus() == "Delivered")
-                   //{
-                        Object[] row = new Object[5];
+                if(order.getCustomerName().equals(userAccount.getName()) && order.getStatus().equals("Delivered"))
+                {
+                        Object[] row = new Object[4];
                         row[0] = order.getOrderId();
                         row[1] = order.getRestaurantName();
                         row[2] = order.getDeliveryAddress();
-                        //row[3] = order.getOrderDate();
                         row[3] = order.getTotalAmount();
-                        row[4] = order.getCustComment();
+                       // row[4] = order.getCustComment();
                         model.addRow(row);
-                   //}
-               }
-                
-            } 
+                }
+             }   
         }
     }
 
@@ -94,16 +91,9 @@ public class OrderHistory extends javax.swing.JPanel {
                 "OrderId", "Restaurant Name", "Delivery Address", "Order Amount", "Comment"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -136,6 +126,11 @@ public class OrderHistory extends javax.swing.JPanel {
         add(txtComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 420, -1));
 
         btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
         add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 200, 80, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -163,10 +158,12 @@ public class OrderHistory extends javax.swing.JPanel {
                 {
                     if (customer.getName().equals(userAccount.getName())) 
                     { 
+                       
                        for(Order order:customer.getCustomerOrderList())
                        {
                            String Comment = txtComment.getText();
-                            ecoSystem.getCustomerDirectory().updateOrder(order,Comment);
+                           //remove comment
+                          // customer.updateOrder(order,Comment);
                        }
                     } 
                 }
@@ -177,6 +174,17 @@ public class OrderHistory extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null,"Please add comment","Warning",JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        Component[] componentArray = userProcessContainer.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        CustomerAreaJPanel customerPanel = (CustomerAreaJPanel) component;
+        customerPanel.populateRequestTable();
+        CardLayout layout = (CardLayout)userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

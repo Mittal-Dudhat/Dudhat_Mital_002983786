@@ -16,7 +16,7 @@ public class DeliveryManDirectory {
     private ArrayList<DeliveryMan> deliveryManList;
 
     public DeliveryManDirectory(){
-        this.deliveryManList=new ArrayList<DeliveryMan>();
+        deliveryManList=new ArrayList<DeliveryMan>();
     }
     
     public ArrayList<DeliveryMan> getDeliveryManList() {
@@ -36,10 +36,6 @@ public class DeliveryManDirectory {
     }
     
     public DeliveryMan createDeliveryMan(String userName){
-        if(deliveryManList == null)
-        {
-            deliveryManList = new ArrayList<DeliveryMan>();
-        }
         deliveryMan= new DeliveryMan(userName);
         deliveryManList.add(deliveryMan);
         return deliveryMan;

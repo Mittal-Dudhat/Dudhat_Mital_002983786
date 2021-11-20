@@ -30,8 +30,8 @@ public class MenuOrder extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem ecoSystem;
     private UserAccount userAccount;
-    private Restaurant restaurant;
-    ArrayList<Dishes> cartMenuList=new ArrayList<Dishes>();
+    Restaurant restaurant;
+    ArrayList<Dishes> cartMenuList;
     int totalAmount=0;
     
     public MenuOrder(JPanel userProcessContainer, UserAccount account,EcoSystem ecoSystem,Restaurant restaurant) {
@@ -74,13 +74,13 @@ public class MenuOrder extends javax.swing.JPanel {
         btnAddToCart = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         lblName = new javax.swing.JLabel();
-        btnOrder = new javax.swing.JButton();
         lblAddress = new javax.swing.JLabel();
         txtAddress = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtTotalAmount = new javax.swing.JTextField();
         lblContactNo = new javax.swing.JLabel();
         txtContactNo = new javax.swing.JTextField();
+        btnOrder = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -158,14 +158,6 @@ public class MenuOrder extends javax.swing.JPanel {
         add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, 100, -1));
         add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 180, 20));
 
-        btnOrder.setText("Place Order");
-        btnOrder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOrderActionPerformed(evt);
-            }
-        });
-        add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 550, 140, -1));
-
         lblAddress.setText("Address :");
         add(lblAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 130, 20));
         add(txtAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 510, 210, -1));
@@ -180,6 +172,14 @@ public class MenuOrder extends javax.swing.JPanel {
         lblContactNo.setText("Contact No :");
         add(lblContactNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 130, 20));
         add(txtContactNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 550, 210, -1));
+
+        btnOrder.setText("Place Order");
+        btnOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderActionPerformed(evt);
+            }
+        });
+        add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 550, 120, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToCartActionPerformed
@@ -194,7 +194,7 @@ public class MenuOrder extends javax.swing.JPanel {
                 if(dish.getdishName() == (String)tblMenu.getValueAt(selectedRow, 0))
                 {
                     cartMenuList.add(dish);
-                    populateCartInfo(); 
+                    populateCartInfo(cartMenuList); 
                 }
             }
         }
@@ -211,7 +211,7 @@ public class MenuOrder extends javax.swing.JPanel {
             {
                 if(item.getdishName() == (String)tblAddToCart.getValueAt(selectedRow, 0))
                 {
-                    totalAmount = totalAmount-item.getDishAmount();
+                    totalAmount = totalAmount-Integer.parseInt(item.getDishAmount());
                     cartMenuList.remove(selectedRow);
                     DefaultTableModel model = (DefaultTableModel) tblAddToCart.getModel();
                     model.setRowCount(0);
@@ -229,21 +229,6 @@ public class MenuOrder extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnRemoveFromCartActionPerformed
 
-    private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
-        // TODO add your handling code here:
-        String address=txtAddress.getText();
-        Long ContactNo= Long.parseLong(txtContactNo.getText());
-        restaurant.addOrder(restaurant.getRestaurantName(), userAccount.getName(), null, cartMenuList, totalAmount , address,ContactNo);
-        for(Customer cust:ecoSystem.getCustomerDirectory().getCustList()){
-            if(userAccount.getName().equals(cust.getName())){
-                System.out.println(cust.getCustomerOrderList().size() + "Previous Customer Order List");
-                cust.addOrder(restaurant.getRestaurantName(), userAccount.getName(), null, cartMenuList, totalAmount, address,ContactNo);
-                System.out.println(cust.getCustomerOrderList().size() + "Customer Order List");
-            }
-        }
-        JOptionPane.showMessageDialog(null,"Order Added successfully");
-    }//GEN-LAST:event_btnOrderActionPerformed
-
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         userProcessContainer.remove(this);
@@ -255,17 +240,44 @@ public class MenuOrder extends javax.swing.JPanel {
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    public void populateCartInfo(){
+    private void btnOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderActionPerformed
+        // TODO add your handling code here:
+        String address=txtAddress.getText();
+        Long ContactNo= Long.parseLong(txtContactNo.getText());
+        
+        for(Customer cust:ecoSystem.getCustomerDirectory().getCustList()){
+            if(userAccount.getName().equals(cust.getName())){
+                cust.addOrder(restaurant.getRestaurantName(), userAccount.getName(), null,cartMenuList, String.valueOf(totalAmount), address,ContactNo);
+                ArrayList<Order> OrderList= cust.getCustomerOrderList();
+                cust.setCustomerOrderList(OrderList);
+            }
+        } 
+        
+        for(Restaurant res:ecoSystem.getRestaurantDirectory().getRestaurantList()){
+            if(res.getRestaurantName().equals(restaurant.getRestaurantName())){
+                System.out.println(cartMenuList.size());
+                res.addOrder(res.getRestaurantName(), userAccount.getName(), null, cartMenuList, String.valueOf(totalAmount) , address,ContactNo);
+            }
+        }
+        
+        JOptionPane.showMessageDialog(null,"Order Added Successfully");
+        ArrayList<Dishes> MenuList = new ArrayList<Dishes>();
+        populateCartInfo(MenuList);
+        txtAddress.setText("");
+        txtContactNo.setText("");
+    }//GEN-LAST:event_btnOrderActionPerformed
+
+    public void populateCartInfo(ArrayList<Dishes> MenuList){
         totalAmount=0;
         DefaultTableModel model = (DefaultTableModel)tblAddToCart.getModel();
         model.setRowCount(0);
         Object[] row = new Object[3];
-        for(Dishes dish:cartMenuList)
+        for(Dishes dish:MenuList)
         {
             row[0] = dish.getdishName();
             row[1] = dish.getDescription();
             row[2] = dish.getDishAmount();
-            totalAmount = totalAmount + dish.getDishAmount();
+            totalAmount = totalAmount + Integer.parseInt(dish.getDishAmount());
             model.addRow(row);
         }
         txtTotalAmount.setText(String.valueOf(totalAmount));

@@ -11,8 +11,14 @@ package Business.Restaurant;
  */
 public class Dishes {
     private String dishName;
-    private int dishAmount;
+    private String dishAmount;
     private String description;
+    
+    public Dishes(String dishName,String description,String dishAmount) {
+        this.dishName=dishName;
+        this.dishAmount=dishAmount;
+        this.description=description;
+    }
 
     public String getdishName() {
         return dishName;
@@ -22,11 +28,11 @@ public class Dishes {
         this.dishName = name;
     }
 
-    public int getDishAmount() {
+    public String getDishAmount() {
         return dishAmount;
     }
 
-    public void setDishAmount(int amount) {
+    public void setDishAmount(String amount) {
         this.dishAmount = amount;
     }
 
@@ -36,5 +42,10 @@ public class Dishes {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    @Override
+    public String toString() {
+        return dishName;
     }
 }

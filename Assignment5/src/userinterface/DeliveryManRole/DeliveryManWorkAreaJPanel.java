@@ -7,6 +7,7 @@ package userinterface.DeliveryManRole;
 import Business.DeliveryMan.DeliveryMan;
 import Business.EcoSystem;
 import Business.Order.Order;
+import Business.Restaurant.Restaurant;
 
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
@@ -44,7 +45,7 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0); 
         for(DeliveryMan deliveryMan : business.getDeliveryManDirectory().getDeliveryManList())
         {
-            if(deliveryMan.getUserName().equals(userAccount.getUsername()))
+            if(deliveryMan.getName().equals(userAccount.getName()))
             {  
                 for(Order order : deliveryMan.getOrderList())
                 {
@@ -55,7 +56,7 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
                     row[3] = order.getDeliveryAddress();
                     row[4] = order.getContactNo();
                     row[5] = order.getTotalAmount();
-                    row[5] = order.getStatus();
+                    row[6] = order.getStatus();
                     model.addRow(row);   
                 }
             }
@@ -114,11 +115,21 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
         if (selectedRow < 0){
             return;
         }
-        Order order = (Order)workRequestJTable.getValueAt(selectedRow, 0); 
-        ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, order);
-        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);        
+        String orderId = (String)workRequestJTable.getValueAt(selectedRow, 0);
+        for(Restaurant res : business.getRestaurantDirectory().getRestaurantList())
+        {
+            for(Order order: res.getOrderList())
+            {
+                if(orderId.equals(order.getOrderId()))
+                {
+                    ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, order);
+                    userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
+                    CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                    layout.next(userProcessContainer);        
+                }
+            }
+        }
+        
 
         
     }//GEN-LAST:event_processJButtonActionPerformed

@@ -6,7 +6,7 @@
 package Business.Customer;
 
 import Business.Order.Order;
-import Business.UserAccount.UserAccount;
+import Business.Restaurant.Dishes;
 import java.util.ArrayList;
 
 /**
@@ -41,9 +41,5 @@ public class CustomerDirectory {
                 customerList.remove(i);
             }
         }
-    }
-    
-    public void updateOrder(Order order,String Comment){
-        order.setCustComment(Comment);
     }
 }

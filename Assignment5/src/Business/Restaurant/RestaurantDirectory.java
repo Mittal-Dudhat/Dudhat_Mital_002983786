@@ -49,8 +49,10 @@ public class RestaurantDirectory {
         this.restaurantList = restaurantList;
     }
     
-    public void AddMenuDishes(Restaurant restaurant,Dishes menuDish){
-        restaurant.addDishes(menuDish);
+    public Dishes AddMenuDishes(Restaurant restaurant,String name,String desc,String amount){
+        menu=new Dishes(name, desc, amount);
+        restaurant.addDishes(menu);
+        return menu;
     }
     
     public void DeleteDishes(Restaurant restaurant,Dishes menu){

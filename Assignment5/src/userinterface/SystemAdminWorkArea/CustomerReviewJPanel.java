@@ -5,7 +5,6 @@
  */
 package userinterface.SystemAdminWorkArea;
 
-import Business.Customer.Customer;
 import Business.EcoSystem;
 import Business.Order.Order;
 import Business.Restaurant.Restaurant;
@@ -44,7 +43,7 @@ public class CustomerReviewJPanel extends javax.swing.JPanel {
                     Object[] row = new Object[3];
                     row[0] = order.getRestaurantName();
                     row[1] = order.getCustomerName();
-                    row[2] = order.getCustComment();
+                    //row[2] = order.getCustComment();
                     model.addRow(row);
                 }
             }     
