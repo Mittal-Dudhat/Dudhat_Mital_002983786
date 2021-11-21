@@ -30,11 +30,13 @@ public class ManageRestaurantInfoJPanel extends javax.swing.JPanel {
         this.userProcessContainer=userProcessContainer;
         this.userAccount=userAccount;
         setRestaurantInfo();
+        txtRestaurantName.setEnabled(false);
     }
     
     public void setRestaurantInfo(){
         for(Restaurant restaurant:ecoSystem.getRestaurantDirectory().getRestaurantList()){
            if(restaurant.getRestaurantName().equals(userAccount.getName())){
+               
                txtRestaurantName.setText(restaurant.getRestaurantName());
                txtAddress.setText(restaurant.getAddress());
                txtPhoneNo.setText(restaurant.getContactNo());
@@ -60,6 +62,9 @@ public class ManageRestaurantInfoJPanel extends javax.swing.JPanel {
         btnUpdate = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(0, 153, 153));
+        setEnabled(false);
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Restaurant Information");
@@ -69,6 +74,8 @@ public class ManageRestaurantInfoJPanel extends javax.swing.JPanel {
         jLabel3.setText("Address :");
 
         jLabel4.setText("Phone No :");
+
+        txtRestaurantName.setEnabled(false);
 
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +143,10 @@ public class ManageRestaurantInfoJPanel extends javax.swing.JPanel {
         String address=txtAddress.getText();
         String number=txtPhoneNo.getText();
        
+        if(txtAddress.getText().equals("") || txtPhoneNo.getText().equals(""))
+        {
+            JOptionPane.showMessageDialog(null, "Please enter all details!!"); 
+        }
         for(Restaurant restaurant:ecoSystem.getRestaurantDirectory().getRestaurantList()){
            if(restaurant.getRestaurantName().equals(userAccount.getName())){
                 ecoSystem.getRestaurantDirectory().updateRestaurantInfo(restaurant,name, number, address);

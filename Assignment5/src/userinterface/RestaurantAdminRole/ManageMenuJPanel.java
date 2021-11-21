@@ -58,6 +58,8 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(0, 153, 153));
+
         lblTitle.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitle.setText("Add/Edit Menu");
@@ -182,16 +184,22 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         String dishName=txtDishName.getText();
         String description = txtDescription.getText();
         String amount=txtAmount.getText();
-       
-        for(Restaurant restro:ecosystem.getRestaurantDirectory().getRestaurantList()){
-           if(restro.getRestaurantName().equals(userAccount.getName())){
-                menu=ecosystem.getRestaurantDirectory().AddMenuDishes(restro,dishName, description, amount);
-            }   
-        }
-        txtDishName.setText("");
-        txtDescription.setText("");
-        txtAmount.setText("");
-        populateTable();
+       if(dishName.equals("") || description.equals("") || amount.equals(""))
+       {
+           JOptionPane.showMessageDialog(null, "Please Enter Details!!");
+       }
+       else
+       {
+            for(Restaurant restro:ecosystem.getRestaurantDirectory().getRestaurantList()){
+               if(restro.getRestaurantName().equals(userAccount.getName())){
+                    menu=ecosystem.getRestaurantDirectory().AddMenuDishes(restro,dishName, description, amount);
+                }   
+            }
+            txtDishName.setText("");
+            txtDescription.setText("");
+            txtAmount.setText("");
+            populateTable();
+       }
     }//GEN-LAST:event_btnAddDishActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -234,7 +242,6 @@ public class ManageMenuJPanel extends javax.swing.JPanel {
         {
             if (restaurant.getRestaurantName().equals(userAccount.getName())) 
             { 
-               
                for(Dishes menu:restaurant.getMenu())
                {
                     Object[] row = new Object[3];

@@ -11,6 +11,7 @@ import Business.Order.Order;
 import Business.Restaurant.Dishes;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -66,6 +67,7 @@ public class ViewOrderDetailsPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblOrderDetails.setModel(new javax.swing.table.DefaultTableModel(
@@ -91,11 +93,17 @@ public class ViewOrderDetailsPanel extends javax.swing.JPanel {
 
         add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, -1, 120));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Change Order Status");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 120, 20));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 150, 20));
 
-        orderStatusCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ready to delivery", "Reject" }));
-        add(orderStatusCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 170, -1));
+        orderStatusCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "In Process", "Reject" }));
+        orderStatusCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderStatusComboActionPerformed(evt);
+            }
+        });
+        add(orderStatusCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 170, -1));
 
         btnChangeStatus.setText("Change Status");
         btnChangeStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -123,25 +131,13 @@ public class ViewOrderDetailsPanel extends javax.swing.JPanel {
         int Selectedindex = orderStatusCombo.getSelectedIndex();
         if(Selectedindex == 0)
         {
-            order.setStatus("Ready to Deliver");
-            for(Customer cust:ecoSystem.getCustomerDirectory().getCustList()){
-                if(order.getCustomerName().equals(cust.getUserName())){
-                    for(Order order : cust.getCustomerOrderList()){
-                        order.setStatus("Ready to Deliver");
-                    }
-                }
-            }
+            order.setStatus("In Process");
+            JOptionPane.showMessageDialog(null, "Order Status Changed Successfully"); 
         }
         else if(Selectedindex == 1)
         {
             order.setStatus("Reject");
-            for(Customer cust:ecoSystem.getCustomerDirectory().getCustList()){
-                if(order.getCustomerName().equals(cust.getUserName())){
-                    for(Order order : cust.getCustomerOrderList()){
-                        order.setStatus("Reject");
-                    }
-                }
-            }
+            JOptionPane.showMessageDialog(null, "Order Status Changed Successfully");
         }
     }//GEN-LAST:event_btnChangeStatusActionPerformed
 
@@ -151,6 +147,10 @@ public class ViewOrderDetailsPanel extends javax.swing.JPanel {
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void orderStatusComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderStatusComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderStatusComboActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -22,7 +22,7 @@ public class Order {
     private String status;
     private String deliveryAddress;
     private Long ContactNo;
-    //private String custComment;
+    private String custComment;
 
     public String getOrderId() {
         return orderId;
@@ -97,13 +97,13 @@ public class Order {
         this.ContactNo = ContactNo;
     }
     
-    /*public String getCustComment() {
+    public String getCustComment() {
         return custComment;
     }
 
     public void setCustComment(String custComment) {
         this.custComment = custComment;
-    }*/
+    }
     
     @Override
     public String toString() {

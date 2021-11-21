@@ -14,6 +14,8 @@ import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -81,11 +83,14 @@ public class MenuOrder extends javax.swing.JPanel {
         lblContactNo = new javax.swing.JLabel();
         txtContactNo = new javax.swing.JTextField();
         btnOrder = new javax.swing.JButton();
+        lblContactNoError = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(204, 255, 204));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblRestaurantName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblRestaurantName.setText("Restaurant Name : ");
-        add(lblRestaurantName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 23, 120, -1));
+        add(lblRestaurantName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 23, 160, -1));
 
         tblAddToCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -110,13 +115,14 @@ public class MenuOrder extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 500, 150));
 
+        btnRemoveFromCart.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnRemoveFromCart.setText("Remove From Cart");
         btnRemoveFromCart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveFromCartActionPerformed(evt);
             }
         });
-        add(btnRemoveFromCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 440, 130, -1));
+        add(btnRemoveFromCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 440, 140, -1));
 
         tblMenu.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -141,6 +147,7 @@ public class MenuOrder extends javax.swing.JPanel {
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 500, 150));
 
+        btnAddToCart.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnAddToCart.setText("Add To Cart");
         btnAddToCart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,6 +156,7 @@ public class MenuOrder extends javax.swing.JPanel {
         });
         add(btnAddToCart, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, 100, -1));
 
+        btnBack.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +164,9 @@ public class MenuOrder extends javax.swing.JPanel {
             }
         });
         add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 590, 100, -1));
-        add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 180, 20));
+
+        lblName.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 180, 20));
 
         lblAddress.setText("Address :");
         add(lblAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 510, 130, 20));
@@ -171,8 +181,15 @@ public class MenuOrder extends javax.swing.JPanel {
 
         lblContactNo.setText("Contact No :");
         add(lblContactNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 550, 130, 20));
+
+        txtContactNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtContactNoKeyReleased(evt);
+            }
+        });
         add(txtContactNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 550, 210, -1));
 
+        btnOrder.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnOrder.setText("Place Order");
         btnOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -180,6 +197,9 @@ public class MenuOrder extends javax.swing.JPanel {
             }
         });
         add(btnOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 550, 120, -1));
+
+        lblContactNoError.setForeground(new java.awt.Color(255, 51, 51));
+        add(lblContactNoError, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 570, 210, 20));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToCartActionPerformed
@@ -193,6 +213,10 @@ public class MenuOrder extends javax.swing.JPanel {
             {
                 if(dish.getdishName() == (String)tblMenu.getValueAt(selectedRow, 0))
                 {
+                    if(cartMenuList == null)
+                    {
+                        cartMenuList = new ArrayList<Dishes>();
+                    }
                     cartMenuList.add(dish);
                     populateCartInfo(cartMenuList); 
                 }
@@ -245,27 +269,55 @@ public class MenuOrder extends javax.swing.JPanel {
         String address=txtAddress.getText();
         Long ContactNo= Long.parseLong(txtContactNo.getText());
         
-        for(Customer cust:ecoSystem.getCustomerDirectory().getCustList()){
-            if(userAccount.getName().equals(cust.getName())){
-                cust.addOrder(restaurant.getRestaurantName(), userAccount.getName(), null,cartMenuList, String.valueOf(totalAmount), address,ContactNo);
-                ArrayList<Order> OrderList= cust.getCustomerOrderList();
-                cust.setCustomerOrderList(OrderList);
+        if(txtAddress.getText().equals("") || txtContactNo.equals(""))
+        {
+            JOptionPane.showMessageDialog(null,"Please Enter address and Contact No");
+        }
+        else if(cartMenuList.size()==0)
+        {
+            JOptionPane.showMessageDialog(null,"Please add atleast one item to the cart");
+        }
+        else
+        {
+            for(Customer cust:ecoSystem.getCustomerDirectory().getCustList()){
+                if(userAccount.getName().equals(cust.getName())){
+                    cust.addOrder(restaurant.getRestaurantName(), userAccount.getName(), null,cartMenuList, String.valueOf(totalAmount), address,ContactNo);
+                    ArrayList<Order> OrderList= cust.getCustomerOrderList();
+                    cust.setCustomerOrderList(OrderList);
+                }
+            } 
+
+            for(Restaurant res:ecoSystem.getRestaurantDirectory().getRestaurantList()){
+                if(res.getRestaurantName().equals(restaurant.getRestaurantName())){
+                    System.out.println(cartMenuList.size());
+                    res.addOrder(res.getRestaurantName(), userAccount.getName(), null, cartMenuList, String.valueOf(totalAmount) , address,ContactNo);
+                }
             }
-        } 
-        
-        for(Restaurant res:ecoSystem.getRestaurantDirectory().getRestaurantList()){
-            if(res.getRestaurantName().equals(restaurant.getRestaurantName())){
-                System.out.println(cartMenuList.size());
-                res.addOrder(res.getRestaurantName(), userAccount.getName(), null, cartMenuList, String.valueOf(totalAmount) , address,ContactNo);
+
+            JOptionPane.showMessageDialog(null,"Order Added Successfully");
+            ArrayList<Dishes> MenuList = new ArrayList<Dishes>();
+            populateCartInfo(MenuList);
+            txtAddress.setText("");
+            txtContactNo.setText("");
+        }
+    }//GEN-LAST:event_btnOrderActionPerformed
+
+    private void txtContactNoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactNoKeyReleased
+        // TODO add your handling code here:
+        if(txtContactNo.getText().trim() != "")
+        {
+            Pattern pat = Pattern.compile("^[0-9]{10}$");
+            Matcher matchPhoneNo= pat.matcher(txtContactNo.getText());
+            if(!matchPhoneNo.matches())
+            {
+               lblContactNoError.setText("Enter Valid Contact No");
+            }
+            else
+            {
+                lblContactNoError.setText("");
             }
         }
-        
-        JOptionPane.showMessageDialog(null,"Order Added Successfully");
-        ArrayList<Dishes> MenuList = new ArrayList<Dishes>();
-        populateCartInfo(MenuList);
-        txtAddress.setText("");
-        txtContactNo.setText("");
-    }//GEN-LAST:event_btnOrderActionPerformed
+    }//GEN-LAST:event_txtContactNoKeyReleased
 
     public void populateCartInfo(ArrayList<Dishes> MenuList){
         totalAmount=0;
@@ -293,6 +345,7 @@ public class MenuOrder extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblContactNo;
+    private javax.swing.JLabel lblContactNoError;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblRestaurantName;
     private javax.swing.JTable tblAddToCart;

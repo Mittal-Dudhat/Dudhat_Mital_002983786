@@ -12,6 +12,7 @@ import Business.Restaurant.Restaurant;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,8 +36,6 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.business = business;
-      
-        
         populateTable();
     }
     
@@ -75,7 +74,10 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
         processJButton = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
+        btnAssignedToMe = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 204, 204));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -101,40 +103,101 @@ public class DeliveryManWorkAreaJPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 58, 680, 96));
 
+        processJButton.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         processJButton.setText("Process");
         processJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 processJButtonActionPerformed(evt);
             }
         });
-        add(processJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, -1, -1));
+        add(processJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, -1, -1));
+
+        btnRefresh.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+        add(btnRefresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, -1, -1));
+
+        btnAssignedToMe.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnAssignedToMe.setText("Assign To Me");
+        btnAssignedToMe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAssignedToMeActionPerformed(evt);
+            }
+        });
+        add(btnAssignedToMe, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 180, 110, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
         int selectedRow = workRequestJTable.getSelectedRow();
         if (selectedRow < 0){
-            return;
+            JOptionPane.showMessageDialog(null,"Please select atleast one row");
         }
-        String orderId = (String)workRequestJTable.getValueAt(selectedRow, 0);
-        for(Restaurant res : business.getRestaurantDirectory().getRestaurantList())
-        {
-            for(Order order: res.getOrderList())
+        else{
+            String orderId = (String)workRequestJTable.getValueAt(selectedRow, 0);
+            for(Restaurant res : business.getRestaurantDirectory().getRestaurantList())
             {
-                if(orderId.equals(order.getOrderId()))
+                for(Order order: res.getOrderList())
                 {
-                    ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, order);
-                    userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
-                    CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-                    layout.next(userProcessContainer);        
+                    if(orderId.equals(order.getOrderId()))
+                    {
+                        ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, order,business,userAccount);
+                        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
+                        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+                        layout.next(userProcessContainer);        
+                    }
                 }
             }
         }
-        
-
-        
     }//GEN-LAST:event_processJButtonActionPerformed
 
+    private void btnAssignedToMeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAssignedToMeActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = workRequestJTable.getSelectedRow();
+        if (selectedRow < 0){
+            JOptionPane.showMessageDialog(null,"Please select atleast one row");
+        }
+        else
+        {
+            String orderId = (String)workRequestJTable.getValueAt(selectedRow, 0);
+            for(Restaurant res : business.getRestaurantDirectory().getRestaurantList())
+            {
+                for(Order order: res.getOrderList())
+                {
+                    if(orderId.equals(order.getOrderId()))
+                    {
+                       order.setStatus("Ready to deliver");        
+                    }
+                }
+            }
+            for(DeliveryMan deliveryMan : business.getDeliveryManDirectory().getDeliveryManList())
+            {
+                if(deliveryMan.getName().equals(userAccount.getName()))
+                {  
+                    for(Order order1 : deliveryMan.getOrderList())
+                    {
+                        if(orderId.equals(order1.getOrderId()))
+                        {
+                            order1.setStatus("Ready to deliver"); 
+                        }
+                    }
+                }
+            }
+            JOptionPane.showMessageDialog(null,"Order Assigned for delivery");
+        }
+    }//GEN-LAST:event_btnAssignedToMeActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        populateTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAssignedToMe;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton processJButton;
     private javax.swing.JTable workRequestJTable;

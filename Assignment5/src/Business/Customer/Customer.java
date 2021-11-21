@@ -88,4 +88,8 @@ public class Customer {
         OrderList.add(order);
         id++;
     }
+    
+    public void updateOrder(Order order,String Comment){
+        order.setCustComment(Comment);
+    }
 }

@@ -62,6 +62,7 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
         btnAssignOrder = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(0, 153, 153));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblAssignDeliveryMan.setModel(new javax.swing.table.DefaultTableModel(
@@ -85,7 +86,7 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblAssignDeliveryMan);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 27, 406, 155));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 27, 410, 155));
 
         btnAssignOrder.setText("Assign Order");
         btnAssignOrder.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +109,7 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
         // TODO add your handling code here:
         int selectedRow = tblAssignDeliveryMan.getSelectedRow();
         if(selectedRow<0){
-            JOptionPane.showMessageDialog(null,"Please select a row from the table to view details","Warning",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Please select a row from the table to assign order","Warning",JOptionPane.WARNING_MESSAGE);
         }
         else
         {

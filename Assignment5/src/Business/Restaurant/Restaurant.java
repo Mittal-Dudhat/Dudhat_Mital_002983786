@@ -90,6 +90,10 @@ public class Restaurant {
         this.orderList = orderList;
     }
     
+    public void updateOrder(Order order,String Comment){
+        order.setCustComment(Comment);
+    }
+    
     @Override
     public String toString() {
         return RestaurantName;

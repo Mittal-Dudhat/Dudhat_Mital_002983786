@@ -38,12 +38,12 @@ public class CustomerReviewJPanel extends javax.swing.JPanel {
         {
             for(Order order:restaurant.getOrderList())
             {
-                if(order.getStatus() == "Delivered")
+                if(order.getStatus().toLowerCase().equals("delivered"))
                 {
                     Object[] row = new Object[3];
                     row[0] = order.getRestaurantName();
                     row[1] = order.getCustomerName();
-                    //row[2] = order.getCustComment();
+                    row[2] = order.getCustComment();
                     model.addRow(row);
                 }
             }     
@@ -64,11 +64,12 @@ public class CustomerReviewJPanel extends javax.swing.JPanel {
         tblCustomerReview = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(204, 204, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblcustomerReview.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblcustomerReview.setText("Customer Review : ");
-        add(lblcustomerReview, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 630, 30));
+        add(lblcustomerReview, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 560, 30));
 
         tblCustomerReview.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -91,15 +92,16 @@ public class CustomerReviewJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblCustomerReview);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 630, 210));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 560, 210));
 
+        btnBack.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBackActionPerformed(evt);
             }
         });
-        add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 110, -1));
+        add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 110, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -108,7 +110,6 @@ public class CustomerReviewJPanel extends javax.swing.JPanel {
         Component[] componentArray = userContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         SystemAdminWorkAreaJPanel sysAdminwjp = (SystemAdminWorkAreaJPanel) component;
-        sysAdminwjp.populateTree();
         CardLayout layout = (CardLayout) userContainer.getLayout();
         layout.previous(userContainer);
     }//GEN-LAST:event_btnBackActionPerformed

@@ -32,6 +32,7 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.ecoSystem = ecoSystem;
+        valueLabel.setText(userAccount.getName());
         populateRequestTable();
     }
     
@@ -61,6 +62,8 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
         btnOrderHistory = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(204, 255, 204));
 
         tblRestaurantInfo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,7 +108,7 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("Customer :");
 
-        valueLabel.setText("<value>");
+        valueLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
         btnOrderHistory.setText("Order History");
         btnOrderHistory.addActionListener(new java.awt.event.ActionListener() {
@@ -146,14 +149,14 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnOrderFood)
                     .addComponent(btnOrderHistory))
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(234, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnOrderFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderFoodActionPerformed
         int selectedRow = tblRestaurantInfo.getSelectedRow();
         if(selectedRow<0){
-            JOptionPane.showMessageDialog(null,"Please select a row from the table to view details","Warning",JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Please select a row from the table to order","Warning",JOptionPane.WARNING_MESSAGE);
         }
         else{
            for(Restaurant restaurant:ecoSystem.getRestaurantDirectory().getRestaurantList())

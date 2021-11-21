@@ -43,16 +43,13 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             {
                for(Order order:restaurant.getOrderList())
                {
-                   if(!order.getStatus().equals("Delivered"))
-                   {
-                        Object[] row = new Object[5];
-                        row[0] = order.getOrderId();
-                        row[1] = order.getCustomerName();
-                        row[2] = order.getDeliveryAddress();
-                        row[3] = order.getTotalAmount();
-                        row[4] = order.getStatus();
-                        model.addRow(row);
-                   }
+                    Object[] row = new Object[5];
+                    row[0] = order.getOrderId();
+                    row[1] = order.getCustomerName();
+                    row[2] = order.getDeliveryAddress();
+                    row[3] = order.getTotalAmount();
+                    row[4] = order.getStatus();
+                    model.addRow(row);
                }
                 
             } 
@@ -74,6 +71,9 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         btnAssignDel = new javax.swing.JButton();
         btnViewOrder = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(0, 153, 153));
 
         tblOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -120,6 +120,13 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -133,7 +140,9 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnAssignDel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnViewOrder)))
+                        .addComponent(btnViewOrder)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnRefresh, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -151,7 +160,8 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAssignDel)
                     .addComponent(btnViewOrder)
-                    .addComponent(btnBack))
+                    .addComponent(btnBack)
+                    .addComponent(btnRefresh))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -172,10 +182,17 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
                    {
                        if(order.getOrderId().equals(OrderId))
                        {
-                            AssignDeliveryMan viewOrder=new AssignDeliveryMan(userProcessContainer,userAccount,order,ecoSystem);
-                            userProcessContainer.add("View Order",viewOrder);
-                            CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-                            layout.next(userProcessContainer);
+                           if(order.getStatus().equals("In Process"))
+                           {
+                                AssignDeliveryMan viewOrder=new AssignDeliveryMan(userProcessContainer,userAccount,order,ecoSystem);
+                                userProcessContainer.add("View Order",viewOrder);
+                                CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+                                layout.next(userProcessContainer);
+                           }
+                           else
+                           {
+                                JOptionPane.showMessageDialog(null,"Order must be In process for further process");
+                           }
                        }
                    }
                 }
@@ -200,28 +217,33 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             String OrderId  = (String)tblOrders.getValueAt(selectedRow, 0);
             for (Restaurant restaurant :ecoSystem.getRestaurantDirectory().getRestaurantList())
             {
-            if (restaurant.getRestaurantName().equals(userAccount.getName())) 
-            {
-               for(Order order:restaurant.getOrderList())
-               {
-                   System.out.println(order.getOrder().size());
-                   if(order.getOrderId().equals(OrderId))
-                   {  
-                        ViewOrderDetailsPanel viewOrder = new ViewOrderDetailsPanel(userProcessContainer,userAccount,order,ecoSystem);
-                        userProcessContainer.add("View Order",viewOrder);
-                        CardLayout layout=(CardLayout)userProcessContainer.getLayout();
-                        layout.next(userProcessContainer);
+                if (restaurant.getRestaurantName().equals(userAccount.getName())) 
+                {
+                   for(Order order:restaurant.getOrderList())
+                   {
+                       if(order.getOrderId().equals(OrderId))
+                       {  
+                            ViewOrderDetailsPanel viewOrder = new ViewOrderDetailsPanel(userProcessContainer,userAccount,order,ecoSystem);
+                            userProcessContainer.add("View Order",viewOrder);
+                            CardLayout layout=(CardLayout)userProcessContainer.getLayout();
+                            layout.next(userProcessContainer);
+                       }
                    }
-               }
-            }
+                }
             }
         }
     }//GEN-LAST:event_btnViewOrderActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        populateOrderTable();
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAssignDel;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnViewOrder;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblOrderInfo;

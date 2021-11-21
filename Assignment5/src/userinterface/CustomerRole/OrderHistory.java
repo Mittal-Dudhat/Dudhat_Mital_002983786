@@ -49,12 +49,12 @@ public class OrderHistory extends javax.swing.JPanel {
             {
                 if(order.getCustomerName().equals(userAccount.getName()) && order.getStatus().equals("Delivered"))
                 {
-                        Object[] row = new Object[4];
+                        Object[] row = new Object[5];
                         row[0] = order.getOrderId();
                         row[1] = order.getRestaurantName();
                         row[2] = order.getDeliveryAddress();
                         row[3] = order.getTotalAmount();
-                       // row[4] = order.getCustComment();
+                        row[4] = order.getCustComment();
                         model.addRow(row);
                 }
              }   
@@ -78,6 +78,7 @@ public class OrderHistory extends javax.swing.JPanel {
         txtComment = new javax.swing.JTextField();
         btnBack = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(204, 255, 204));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblOrders.setModel(new javax.swing.table.DefaultTableModel(
@@ -101,7 +102,7 @@ public class OrderHistory extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblOrders);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 47, 570, 140));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 550, 130));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -151,22 +152,32 @@ public class OrderHistory extends javax.swing.JPanel {
         if(txtComment.getText() != "")
         {
             int selectedRow = tblOrders.getSelectedRow();
+            String Comment = txtComment.getText();
             if(selectedRow>=0)
             {
-                int OrderId = (int)tblOrders.getValueAt(selectedRow, 0);
+                String OrderId = (String)tblOrders.getValueAt(selectedRow, 0);
                 for (Customer customer:ecoSystem.getCustomerDirectory().getCustList())
                 {
                     if (customer.getName().equals(userAccount.getName())) 
                     { 
-                       
                        for(Order order:customer.getCustomerOrderList())
                        {
-                           String Comment = txtComment.getText();
-                           //remove comment
-                          // customer.updateOrder(order,Comment);
+                           customer.updateOrder(order,Comment);   
                        }
                     } 
                 }
+                for(Restaurant res : ecoSystem.getRestaurantDirectory().getRestaurantList())
+                {
+                    for(Order order : res.getOrderList())
+                    {
+                        if(order.getOrderId().equals(OrderId))
+                        {
+                            res.updateOrder(order,Comment);
+                        }
+                    }
+                }
+                JOptionPane.showMessageDialog(null,"Comment added Successfully");
+                populateOrderHistoryTable();
             }
         }
         else
