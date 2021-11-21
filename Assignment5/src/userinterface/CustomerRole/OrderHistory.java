@@ -47,7 +47,7 @@ public class OrderHistory extends javax.swing.JPanel {
         {  
             for(Order order:res.getOrderList())
             {
-                if(order.getCustomerName().equals(userAccount.getName()) && order.getStatus().equals("Delivered"))
+                if(order.getCustomerName().equals(userAccount.getName()) && order.getStatus().toLowerCase().equals("delivered"))
                 {
                         Object[] row = new Object[5];
                         row[0] = order.getOrderId();
@@ -109,6 +109,7 @@ public class OrderHistory extends javax.swing.JPanel {
         jLabel1.setText("View All Orders");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 570, -1));
 
+        btnReview.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnReview.setText("Add Comment");
         btnReview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,6 +118,7 @@ public class OrderHistory extends javax.swing.JPanel {
         });
         add(btnReview, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, 140, -1));
 
+        btnSubmit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,6 +128,7 @@ public class OrderHistory extends javax.swing.JPanel {
         add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, -1, -1));
         add(txtComment, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 420, -1));
 
+        btnBack.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

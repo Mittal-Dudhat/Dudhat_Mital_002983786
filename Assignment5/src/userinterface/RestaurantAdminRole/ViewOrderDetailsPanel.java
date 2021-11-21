@@ -105,6 +105,7 @@ public class ViewOrderDetailsPanel extends javax.swing.JPanel {
         });
         add(orderStatusCombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 170, -1));
 
+        btnChangeStatus.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnChangeStatus.setText("Change Status");
         btnChangeStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,6 +118,7 @@ public class ViewOrderDetailsPanel extends javax.swing.JPanel {
         jLabel2.setText("Order Id: ");
         add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 70, 80, 20));
 
+        btnBack.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

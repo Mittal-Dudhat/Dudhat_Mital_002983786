@@ -88,6 +88,7 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 27, 410, 155));
 
+        btnAssignOrder.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnAssignOrder.setText("Assign Order");
         btnAssignOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,6 +97,7 @@ public class AssignDeliveryMan extends javax.swing.JPanel {
         });
         add(btnAssignOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 188, 175, -1));
 
+        btnBack.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

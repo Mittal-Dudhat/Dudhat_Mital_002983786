@@ -98,6 +98,7 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
             tblRestaurantInfo.getColumnModel().getColumn(2).setResizable(false);
         }
 
+        btnOrderFood.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnOrderFood.setText("Order Food");
         btnOrderFood.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,6 +111,7 @@ public class CustomerAreaJPanel extends javax.swing.JPanel {
 
         valueLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
 
+        btnOrderHistory.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnOrderHistory.setText("Order History");
         btnOrderHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

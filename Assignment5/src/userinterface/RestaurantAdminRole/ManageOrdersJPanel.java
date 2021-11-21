@@ -99,6 +99,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
         lblOrderInfo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblOrderInfo.setText("Order Information :");
 
+        btnAssignDel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnAssignDel.setText("Assign Delivery Man");
         btnAssignDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,6 +107,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnViewOrder.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnViewOrder.setText("View Order");
         btnViewOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +115,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnBack.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnBack.setText("Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,6 +123,7 @@ public class ManageOrdersJPanel extends javax.swing.JPanel {
             }
         });
 
+        btnRefresh.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnRefresh.setText("Refresh");
         btnRefresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

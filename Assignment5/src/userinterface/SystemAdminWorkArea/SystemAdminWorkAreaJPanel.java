@@ -92,6 +92,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         lblPassword.setText("Password :");
         add(lblPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 130, 20));
 
+        btnSubmit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -100,6 +101,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
         add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 150, -1));
 
+        btnUpdateSave.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnUpdateSave.setText("Save");
         btnUpdateSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,6 +136,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         lblTableName.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         add(lblTableName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 510, 30));
 
+        btnUpdate.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnUpdate.setText("Update");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +145,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
         add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 510, 100, -1));
 
+        btnDelete.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btnDelete.setText("Delete");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,6 +154,7 @@ public class SystemAdminWorkAreaJPanel extends javax.swing.JPanel {
         });
         add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 510, 90, -1));
 
+        btCustomerReview.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         btCustomerReview.setText("View Customer Review");
         btCustomerReview.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
